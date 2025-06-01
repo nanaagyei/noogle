@@ -1,0 +1,17 @@
+{
+    "title": "OPUS Baseline Generator",
+    "type": "project",
+    "alias": "baseline-generator",
+    "headline": "Why everyone needs a nana",
+    "timeline": "Aug 2024 - Dec 2024",
+    "searchDescription": "Why wonder when you can get one",
+    "aiDescription": [
+      "I transform and improve my environment.", 
+      "Ever since I learned how to program through math, my main purpose has been to use my technical expertise to transform the environments around me. This mission is deeply reflected in my career journey. I’ve worked with startups and tech companies across Ghana, Kenya, and the US, developing innovative solutions to address local and global issues. My technical and analytical skills, combined with my mathematical-thinking approach, have enabled me to consistently exceed expectations and deliver impactful results.", 
+      "In every role, I’ve sought unique opportunities to rise above challenges and push the boundaries of what’s possible.",
+      "Beyond my technical expertise, I’ve also been recognized for my ability to ideate and pitch innovative solutions.",
+      "While my technical experiences are vast, I deeply value opportunities to broaden my exposure to the challenges and perspectives of diverse communities worldwide. I am seeking unique opportunities to apply my skills in software engineering, data science, and machine learning to improve lives while broadening my understanding of how people around the world navigate and overcome challenges."],    
+      "tech": ["Python", "KNN", "Numpy", "GIS Data", "PyQt", "Machine Learning"],
+    "links": [{"link": "https://github.com/nanaagyei/baseline-update", "name": "github", "url": "github-outline.svg" , "urlHover": "github-outline.svg"}]
+
+  }

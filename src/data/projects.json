@@ -1,0 +1,104 @@
+[
+  {
+    "title": "Facial Recognition Project",
+    "type": "project",
+    "alias": "research-project",
+    "headline": "Local mathematician spirals into the world of facial recognition",
+    "timeline": "Jan 2022 - Dec 2023",
+    "searchDescription": "A research project that explores a comparative analysis of preprocessing techniques used for facial recognition from a dataset of 1000 images",
+    "longDescription": "Using Python, I explored three popular methods used in facial recognition: Principal Component Analysis (PCA), Singular Value Decomposition (SVD), and Karhunen-Loeve Expansions (KL-Expansions), which is fundamentally a continuous form of PCA but with stochastic random processes. I implemented Python scripts from scratch to explore the use of interpolation and resampling techniques on facial recognition accuracy using Principal Component Analysis (PCA) and Singular Value Decomposition (SVD). Images were preprocessed by mean subtraction, followed by linear interpolation, cubic spline interpolation, and resampling to standardize their dimensions. The processed images were then subjected to SVD to extract eigenfaces. The analysis revealed that cubic spline interpolation better preserves facial details critical for recognition compared to resampling. This finding underscores the importance of choosing suitable preprocessing methods in facial recognition systems, with implications for enhancing their accuracy and applicability in various domains.",
+    "tech": ["Python", "Matplotlib", "Numpy", "Scikit-learn", "Facial Recognition", "Preprocessing", "Machine Learning", "PCA", "SVD", "KL-Expansions"],
+    "links": [{"link": "https://ir.library.oregonstate.edu/concern/graduate_projects/3197xw046?locale=en", "name": "check it out", "url": "link-outline.svg" , "urlHover": "link-outline.svg"}]
+
+  },
+  {
+    "title": "Machine Learning Classifier",
+    "type": "project",
+    "headline": "Local mathematician discovers machine learning (he thinks he's a genius)",
+    "alias": "ml-classifier",
+    "timeline": "Jan 2024 - Feb 2024",
+    "searchDescription": "A machine learning classifier that classifies images of animals into different categories",
+    "longDescription": "I developed a machine learning classifier that classifies images of animals into different categories. I used Python and Scikit-learn to build the classifier. I utilized a pre-trained deep learning model trained on the CIFAR-10 dataset, capable of classifying images into one of ten classes: airplane, automobile, bird, cat, deer, dog, frog, horse, ship, or truck., then I build a UI to visualize the results using Streamlit.", 
+    "tech": ["Python", "Scikit-learn", "Tensorflow", "Numpy", "Streamlit", "Data Visualization"],
+    "links": [{"link": "https://github.com/nanaagyei/ml-gui-app", "name": "github", "url": "github-outline.svg" , "urlHover": "github-outline.svg" }]
+  },
+  {
+    "title": "Tuby Media - YouTube Clone",
+    "type": "project",
+    "alias": "tuby-media",
+    "headline": "Emerging software engineer joins the 'build an app clone' frenzy",
+    "timeline": "Feb 2024 - March 2024",
+    "searchDescription": "A simple clone of the popular video streaming platform, YouTube. · TailwindCSS · React · YouTube API",
+    "longDescription": "I created a YouTube clone using React, Tailwind CSS, and the YouTube API. I used the YouTube API to get the data for the videos and the thumbnails. This project was a fun way to learn about the YouTube API and how to build a clone of a popular platform.", 
+    "tech": ["React", "Tailwind CSS", "YouTube API"],
+    "links": [{"link": "https://tuby-clone.netlify.app/", "name": "check it out", "url": "link-outline.svg" , "urlHover": "link-outline.svg"}]
+  },
+  {
+    "title": "OPUS Baseline Generator",
+    "type": "project",
+    "alias": "baseline-generator",
+    "headline": "Mathematician decides to be a civil engineer for a month (he almost lost his hair)",
+    "timeline": "Aug 2024 - Dec 2024",
+    "searchDescription": "A tool that generates and populates baseline data for a given area based on a point or a set of points",
+    "longDescription": "I developed a tool that generates baseline data for a given area. I used Python, PyQt, and K-Nearest Neighbors to calculate the distance between a point and a set of points, then using that distance, I grouped the points into different categories based on the distance. I then used the grouped points to generate a baseline data for the given area.", 
+    "tech": ["Python", "PyQt", "K-Nearest Neighbors", "GIS Data", "Data Visualization"],
+    "links": [{"link": "https://github.com/nanaagyei/baseline-update", "name": "github", "url": "github-outline.svg" , "urlHover": "github-outline.svg"}]
+  },
+  {
+    "title": "Wintima Foundation",
+    "alias": "wintima",
+    "timeline": "Jan 2025 - Present",
+    "headline": "Local mathematician joins a non-profit to help the community",
+    "type": "non-profit",
+    "searchDescription": "A non-profit organization that provides free education to the northern part of Ghana",
+    "longDescription": "I joined Wintima Foundation as a volunteer to help the community. I helped with the website and the social media pages. I also helped with the marketing and the fundraising.", 
+    "tech": ["React", "Tailwind CSS", "Next.js", "Figma", "Framer Motion", "TypeScript", "JavaScript", "HTML", "CSS"],
+    "links": [{"link": "https://github.com/Wintima/wintima.com", "name": "github", "url": "github-outline.svg" , "urlHover": "github-outline.svg"}]
+  },
+
+  {
+    "title": "Stay Afloat",
+    "alias": "stay-afloat",
+    "timeline": "Jan 2025 - Present",
+    "headline": "Man builds a SaaS product that aims to expand online education in Ghana",
+    "type": "project",
+    "searchDescription": "An online learning platform that is used by educational institutions in Ghana to expand online education, increasing their market need and revenue",
+    "longDescription": "I created a SaaS product that is targeted at educational institutions in Ghana to expand online education, increasing their market need and revenue. I used React, Tailwind CSS, and Next.js to build the website. I also used Figma to design the website. I also used Framer Motion to animate the website. I also used TypeScript to build the website.", 
+    "tech": ["React", "Tailwind CSS", "Next.js", "Figma", "Framer Motion", "TypeScript", "JavaScript", "Supabase", "Stripe"],
+    "links": [{"link": "https://lms-platform-brown.vercel.app/", "name": "check it out", "url": "link-outline.svg" , "urlHover": "link-outline.svg"}]
+  },
+  {
+    "title": "ByDay",
+    "alias": "by-day",
+    "headline": "Last born of the Tuffour family joins twin brothers to build a family startup",
+    "timeline": "May 2025 - Present",
+    "type": "startup",
+    "tech": ["React", "Tailwind CSS", "Next.js", "Supabase", "Stripe"],
+    "searchDescription": "A dynamic e-commerce platform designed to seamlessly connect skilled and handy professionals with clients or users for brief service provisions.",
+    "longDescription": "Operating similarly to ride-hailing applications like Bolt or Uber, ByDay integrates Google Maps and location-based services to enable users to request skilled professionals within their geographical area. ByDay aims to revolutionize the on-demand service and reduce unemployment in the industry by providing a reliable, fast, and scalable solution for users seeking skilled professionals. Through robust technology, strategic monetization, and market expansion, ByDay can establish itself as a dominant player in the digital service economy.", 
+    "links": [{"link": "#", "name": "check it out", "url": "link-outline.svg" , "urlHover": "link-outline.svg"}]
+  },
+  {
+    "title": "Akomapa Health",
+    "alias": "akomapa",
+    "headline": "Put 'Non-Profit' as his middle name because man be doing the most!",
+    "timeline": "May 2025 - Present",
+    "type": "non-profit",
+    "tech": ["React", "Tailwind CSS", "Next.js", "Supabase", "Stripe"],
+    "searchDescription": "A non-profit organization that provides free health education to the northern part of Ghana",
+    "longDescription": "I joined Akomapa Health as the lead developer to help the community. I helped with the website and the social media pages. I also helped with the marketing and the fundraising.",
+    "links": [{"link": "https://github.com/akomapahealth/akomapa-health", "name": "github", "url": "github-outline.svg" , "urlHover": "github-outline.svg"}]
+  },
+  {
+    "title": "GradGPT Pro",
+    "alias": "gradgptpro",
+    "headline": "Local mathematician builds a SaaS product that aims to expand online education in Ghana",
+    "timeline": "May 2025 - Present",
+    "type": "project",
+    "tech": ["Next.js", "Tailwind CSS", "Supabase", "Stripe", "OpenAI API"],
+    "searchDescription": "A SaaS product that aims to expand online education in Ghana",
+    "longDescription": "I created a SaaS product that is targeted at educational institutions in Ghana to expand online education, increasing their market need and revenue. I used React, Tailwind CSS, and Next.js to build the website. I also used Figma to design the website. I also used Framer Motion to animate the website. I also used TypeScript to build the website.", 
+    "links": [{"link": "https://gradgpt.pro/", "name": "check it out", "url": "link-outline.svg" , "urlHover": "link-outline.svg"}]
+  }
+]
+

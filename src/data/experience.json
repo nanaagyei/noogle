@@ -1,0 +1,29 @@
+[
+  {
+    "title": "DynaConnections Corporations",
+    "alias": "dynaconnections",
+    "headline": "Software QA Engineer",
+    "timeline": "present",
+    "searchDescription": "Engineering the next tool to help doctors revascularization decisons",
+    "longDescription": "At Symbiotic AI I'm helping develop V1 of Revaz AI. Learned lots about AWS, including SES, Amplify, S3, and EC2. Designed and then developed the waitlist site for the AI product."
+  },
+
+  {
+    "title": "Cita Marketplace",
+    "alias": "citamarketplace",
+    "headline": "Machine Learning Engineer - Intern",
+    "timeline": "June 2022 - Sept 2022",
+    "type": "startup",
+    "searchDescription": "Creating the first uber pharmacy in pakistan",
+    "longDescription": "I created pitch decks used to land partnerships with leading Pakistani pharmacies, and worked on the mobiel app system in React Native"
+  },
+  {
+    "title": "Akomapa Health",
+    "alias": "akomapa",
+    "headline": "Software Engineer",
+    "timeline": "May 2025 - Present",
+    "type": "startup",
+    "searchDescription": "A non-profit organization that provides free health education to the northern part of Ghana",
+    "longDescription": "I joined Akomapa Health as the lead developer to help the community. I helped with the website and the social media pages. I also helped with the marketing and the fundraising."
+  }
+]
