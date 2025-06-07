@@ -5,17 +5,24 @@ import { NextResponse } from "next/server";  // Import NextResponse
 export async function POST(req) {
   const { email, subject, message, cc, bcc } = await req.json();
 
-  // Corrected environment variable names for non-public access
-  const AWS_ACCESS_KEY = process.env.NEXT_PULIC_AWS_ACCESS_KEY;
-  const AWS_ACCESS_KEY_SECRET = process.env.NEXT_PUBLIC_AWS_SECRET;
+  // Server-side only environment variables (no NEXT_PUBLIC prefix for security)
+  const AWS_ACCESS_KEY = process.env.AWS_ACCESS_KEY_ID;
+  const AWS_ACCESS_KEY_SECRET = process.env.AWS_SECRET_ACCESS_KEY;
+  const AWS_REGION = process.env.AWS_REGION;
 
-  console.log(AWS_ACCESS_KEY, AWS_ACCESS_KEY_SECRET)
+
+  if (!AWS_ACCESS_KEY || !AWS_ACCESS_KEY_SECRET) {
+    return NextResponse.json(
+      { message: "AWS credentials not configured" },
+      { status: 500 }
+    );
+  }
 
   let sesClient = null;
 
   try {
     sesClient = new SESClient({
-      region: "us-east-1", 
+      region: AWS_REGION, 
       credentials: {
         accessKeyId: AWS_ACCESS_KEY,
         secretAccessKey: AWS_ACCESS_KEY_SECRET,
@@ -30,9 +37,9 @@ export async function POST(req) {
 
   // Prepare email params
   const params = {
-    Source: "rumezaft@gmail.com", // Verified email address in AWS SES
+    Source: "prince.agyei.tuffour@gmail.com", // Verified email address in AWS SES
     Destination: {
-      ToAddresses: ["rumezaft@gmail.com"], // Replace with your dynamic recipient if needed
+      ToAddresses: ["prince.agyei.tuffour@gmail.com"], // Replace with your dynamic recipient if needed
     },
     Message: {
       Subject: {
@@ -42,7 +49,12 @@ export async function POST(req) {
       Body: {
         Html: {
           Data: `
-            <li>Return email(s): ${email} ${cc} ${bcc}</li>
+            <h3>New Contact Form Submission</h3>
+            <p><strong>From:</strong> ${email}</p>
+            ${cc ? `<p><strong>CC:</strong> ${cc}</p>` : ''}
+            ${bcc ? `<p><strong>BCC:</strong> ${bcc}</p>` : ''}
+            <p><strong>Subject:</strong> ${subject}</p>
+            <p><strong>Message:</strong></p>
             <p>${message}</p>`,
           Charset: "UTF-8",
         },
