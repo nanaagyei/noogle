@@ -18,6 +18,77 @@ export default function SearchBar({ query }) {
   const [tooltip, setTooltip] = useState(false);
   const [tooltip2, setTooltip2] = useState(false);
 
+  // Animation variants for the letters
+  const letterVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 50,
+      scale: 0.3,
+      rotate: -10
+    },
+    visible: (index) => ({
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      rotate: 0,
+      transition: {
+        delay: index * 0.1,
+        duration: 0.6,
+        type: "spring",
+        stiffness: 100,
+        damping: 8
+      }
+    }),
+    hover: (index) => ({
+      scale: 1.2,
+      rotate: 5,
+      y: -12,
+      transition: {
+        duration: 0.4,
+        type: "spring",
+        stiffness: 400,
+        damping: 10
+      }
+    }),
+    floating: (index) => ({
+      y: [0, -8, 0],
+      rotate: [0, 2, -2, 0],
+      transition: {
+        duration: 3 + (index * 0.2),
+        repeat: Infinity,
+        delay: index * 0.2,
+        ease: "easeInOut"
+      }
+    })
+  };
+
+  // Sophisticated color palette that blends with dark purple background
+  const letterColors = [
+    "#9CA3AF", // ( - Cool grey
+    "#C48DF6", // N - Your signature purple
+    "#9CA3AF", // ) - Cool grey
+    "#E5E7EB", // o - Light grey
+    "#A78BFA", // o - Medium purple
+    "#93C5FD", // g - Soft blue
+    "#D1D5DB", // l - Warm grey
+    "#B4A7D6"  // e - Muted lavender
+  ];
+
+  // Enhanced hover colors for transitions
+  const hoverColors = [
+    "#D1D5DB", // ( - Lighter grey
+    "#DDA8F8", // N - Brighter purple
+    "#D1D5DB", // ) - Lighter grey
+    "#F3F4F6", // o - Bright grey
+    "#C4B5FD", // o - Bright purple
+    "#BFDBFE", // g - Bright blue
+    "#E5E7EB", // l - Bright grey
+    "#D8B4FE"  // e - Bright lavender
+  ];
+
+  // Split (N)oogle into individual letters
+  const letters = ["(", "N", ")", "o", "o", "g", "l", "e"];
+
   useEffect(() => {
     setShowSearch(false);
   }, [search, path]);
@@ -43,9 +114,91 @@ export default function SearchBar({ query }) {
       style={{ zIndex: 80 }}
     >
       {path === "/" && (
-        <h2 className="text-white text-6xl lg:text-7xl xl:text-8xl absolute -top-20 lg:-top-28">
-          (N)oogle
-        </h2>
+        <motion.div 
+          className="absolute -top-24 lg:-top-32 xl:-top-36 flex items-center justify-center"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}
+        >
+          {/* Background glow effect */}
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-slate-500/10 to-blue-500/10 blur-3xl rounded-full transform scale-150" />
+          
+          {/* Main letters container */}
+          <div className="relative text-7xl lg:text-8xl xl:text-9xl flex items-center justify-center">
+            {letters.map((letter, index) => (
+              <motion.span
+                key={index}
+                custom={index}
+                initial="hidden"
+                animate={["visible", "floating"]}
+                whileHover="hover"
+                variants={letterVariants}
+                className="inline-block cursor-pointer select-none relative"
+                style={{
+                  color: letterColors[index],
+                  textShadow: `0 0 20px ${letterColors[index]}40`
+                }}
+              >
+                {/* Letter background glow that appears on hover */}
+                <motion.div
+                  className="absolute inset-0 rounded-lg -z-10"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileHover={{ 
+                    opacity: 0.4,
+                    scale: 1.6,
+                    background: `radial-gradient(circle, ${letterColors[index]}30 0%, transparent 70%)`
+                  }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                />
+                
+                {/* Enhanced hover color and glow */}
+                <motion.span
+                  className="relative z-10"
+                  initial={{ color: letterColors[index] }}
+                  whileHover={{ 
+                    color: hoverColors[index],
+                    textShadow: [
+                      `0 0 20px ${letterColors[index]}40`,
+                      `0 0 40px ${hoverColors[index]}80`,
+                      `0 0 60px ${hoverColors[index]}60`
+                    ]
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {letter}
+                </motion.span>
+              </motion.span>
+            ))}
+          </div>
+          
+          {/* Floating particles effect */}
+          {[...Array(8)].map((_, i) => (
+            <motion.div
+              key={i}
+              className={`absolute w-1 h-1 rounded-full ${
+                i % 3 === 0 ? 'bg-purple-400/60' : 
+                i % 3 === 1 ? 'bg-slate-400/60' : 'bg-blue-400/60'
+              }`}
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: [0, 0.8, 0],
+                y: [0, -40, -80],
+                x: [0, (i % 2 === 0 ? 15 : -15), 0],
+                scale: [0, 1, 0]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                delay: i * 0.4,
+                ease: "easeOut"
+              }}
+              style={{
+                left: `${15 + i * 8}%`,
+                top: "60%"
+              }}
+            />
+          ))}
+        </motion.div>
       )}
 
       <div
@@ -106,31 +259,6 @@ export default function SearchBar({ query }) {
             </div>
           </div>
         </div>
-
-        {/* {showSearch && (
-          <div className="w-full">
-            <div className="border-b border-accent-text mx-4" />
-            <h2 className="px-4 font-semibold text-md text-accent-text mt-2">
-              Trending searches
-            </h2>
-            {searches.map((item, idx) => (
-              <Link
-                className="px-4 flex flex-row items-center w-full gap-x-2 text-[#E5DFFF] py-2 rounded-lg hover:bg-white hover:bg-opacity-5 transform transition ease-out duration-200"
-                href={`/search?q=${encodeURIComponent(item.param)}`}
-                key={idx}
-                onClick={() => {
-                  setShowSearch(false); // Hide dropdown
-                }}
-              >
-                <div
-                  className="bg-no-repeat w-5 h-3 bg-cover"
-                  style={{ backgroundImage: "url(icons/trending.svg)" }}
-                />
-                {item.search}
-              </Link>
-            ))}
-          </div>
-        )} */}
 
         {showSearch && (
           <AnimatePresence>

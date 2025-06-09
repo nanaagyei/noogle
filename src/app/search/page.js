@@ -63,9 +63,9 @@ export default function Search() {
     "PyTorch",
     "Keras",
     "Scikit-learn",
-    "OpenCV",
+    "MongoDB",
     "PyTorch",
-    "Keras",
+    "GraphQL",
   ];
 
   useEffect(() => {
@@ -289,6 +289,24 @@ export default function Search() {
                     that improve lives and drive meaningful impact across different
                     domains and industries.
                   </h2>
+
+                  <div className="flex flex-col md:flex-row gap-4 w-full">
+                    <Link
+                      href="/search?q=nana-projects"
+                      className="border border-[#DED7FC] flex flex-row w-full items-center justify-center rounded-md p-4 hover:bg-[#DED7FC] hover:text-dark-purple-100 transform transition-all duration-300"
+                    >
+                      discover my projects
+                    </Link>
+                    
+                    <Link
+                      href="/resume.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="border border-[#DED7FC] flex flex-row w-full items-center justify-center rounded-md p-4 hover:bg-[#DED7FC] hover:text-dark-purple-100 transform transition-all duration-300"
+                    >
+                      view my resume
+                    </Link>
+                  </div>
 
                   {!showMore && (
                     <div className="bg-gradient-to-t from-dark-purple-300 via-dark-purple-200 via-dark-purple-100 to-transparent absolute -bottom-6 h-10 w-full" />

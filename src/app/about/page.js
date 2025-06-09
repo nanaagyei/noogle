@@ -19,7 +19,7 @@ export default function About() {
         </h2>
 
         <h2>
-          Currently, I’m working as a Software QA Engineer at{" "}
+          Currently, I'm working as a Software QA Engineer at{" "}
           <span className="text-[#DED7FC] hover:opacity-70  transform transition-all duration-300">
             <Link href={"https://www.dynaconnections.com/"} target={"_blank"}>
               dynaConnections Corporations
@@ -30,7 +30,7 @@ export default function About() {
           through comprehensive testing, test automation, and quality assurance processes. 
           I work closely with development teams to maintain high standards of software quality while 
           contributing to the continuous improvement of our testing methodologies and frameworks. I have a tradition of building at
-          least one large-scale project every year, this year I’m creating{" "}
+          least one large-scale project every year, this year I'm creating{" "}
           <span>
             <Link
               className="inline-flex items-center hover:underline hover:opacity-70 text-[#DED7FC] transform transition-all duration-300 gap-x-1"
@@ -50,12 +50,23 @@ export default function About() {
           cliffs to test my skills.
         </h2>
 
-        <Link
-          href="/search?q=nana-projects"
-          className="border border-[#DED7FC] flex flex-row w-full items-center justify-center rounded-md p-4 hover:bg-[#DED7FC] hover:text-dark-purple-100 transform transition-all duration-300"
-        >
-          discover my projects
-        </Link>
+        <div className="flex flex-col md:flex-row gap-4 w-full">
+          <Link
+            href="/search?q=nana-projects"
+            className="border border-[#DED7FC] flex flex-row w-full items-center justify-center rounded-md p-4 hover:bg-[#DED7FC] hover:text-dark-purple-100 transform transition-all duration-300"
+          >
+            discover my projects
+          </Link>
+          
+          <Link
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="border border-[#DED7FC] flex flex-row w-full items-center justify-center rounded-md p-4 hover:bg-[#DED7FC] hover:text-dark-purple-100 transform transition-all duration-300"
+          >
+            view my resume
+          </Link>
+        </div>
       </div>
       <div className="flex md:flex-col-reverse items-center justify-start">
         <div

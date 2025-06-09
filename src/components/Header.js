@@ -35,7 +35,7 @@ export default function Header({ setShowMailer }) {
     {
       text: "stalk",
       icon: "x.svg",
-      url: "https://x.com/nk_agyei",
+      url: "https://x.com/tkay_jnr",
     },
     {
       text: "connect",
@@ -50,7 +50,7 @@ export default function Header({ setShowMailer }) {
     {
       text: "articles",
       icon: "articles.svg",
-      url: "https://nkagyei.substack.com/",
+      url: "https://medium.com/@tuffourp",
     },
   ];
 
