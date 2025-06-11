@@ -8,8 +8,10 @@ import life from "../../data/life.json";
 import whyHire from "../../data/why.json";
 import Image from "next/image";
 import { Tenor_Sans } from "next/font/google";
+import { useTheme } from "../../contexts/ThemeContext";
 
 export default function Search() {
+  const { theme } = useTheme();
   const [isHover, setIsHover] = useState(false);
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -63,9 +65,9 @@ export default function Search() {
     "PyTorch",
     "Keras",
     "Scikit-learn",
-    "OpenCV",
+    "MongoDB",
     "PyTorch",
-    "Keras",
+    "GraphQL",
   ];
 
   useEffect(() => {
@@ -91,7 +93,10 @@ export default function Search() {
       >
         <div className="w-4/5">
           <div className="flex flex-row items-center gap-x-4">
-            <div className="bg-dark-purple-300 rounded-full w-8 h-8 flex items-center justify-center">
+            <div 
+              className="rounded-full w-8 h-8 flex items-center justify-center"
+              style={{ backgroundColor: theme.bg.tertiary }}
+            >
               <div
                 className="bg-no-repeat bg-cover w-5 h-5"
                 style={{ backgroundImage: `url(icons/key.svg)` }}
@@ -103,12 +108,13 @@ export default function Search() {
             </div>
           </div>
           <h2
-            className="text-search-blue text-xl hover:underline cursor-pointer"
+            className="text-xl hover:underline cursor-pointer"
+            style={{ color: theme.text.link }}
             onClick={() => handleSelect(data)}
           >
             {data.headline}
           </h2>
-          <h2 className="text-white opacity-50">{data.searchDescription}</h2>
+          <h2 style={{ color: theme.text.muted }}>{data.searchDescription}</h2>
         </div>
 
         <Image
@@ -125,9 +131,13 @@ export default function Search() {
   const SearchItemOpen = ({ data }) => {
     return (
       <div>
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-70 z-40 flex items-center justify-center">
+        <div className="fixed inset-0 z-40 flex items-center justify-center" style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)' }}>
           <div
-            className={`p-2 flex flex-col items-center h-4/5 w-11/12 md:w-4/5 lg:w-3/5 bg-accent-color rounded-lg shadow-lg z-50 transform transition-transform duration-300 ease-in-out`}
+            className="p-2 flex flex-col items-center h-4/5 w-11/12 md:w-4/5 lg:w-3/5 rounded-lg shadow-lg z-50 transform transition-transform duration-300 ease-in-out"
+            style={{ 
+              backgroundColor: theme.bg.modal,
+              boxShadow: `0 25px 50px -12px ${theme.shadow}`
+            }}
           >
             <div className="flex row w-full justify-end mb-2">
               <div
@@ -148,7 +158,7 @@ export default function Search() {
             </div>
 
             <div className="flex flex-col w-full items-center justify-start h-3/5 p-4 gap-y-2 relative">
-              <h2 className="w-full text-2xl">{data.title}</h2>
+              <h2 className="w-full text-2xl" style={{ color: theme.text.primary }}>{data.title}</h2>
               <div className={`flex flex-row w-full gap-x-2`}>
                 {displayQuery === "nana-projects" &&
                   data.links.map((link, idx) => (
@@ -205,9 +215,15 @@ export default function Search() {
   };
 
   return (
-    <div className="flex flex-col w-full h-full text-white font-ropaSans">
+    <div 
+      className="flex flex-col w-full h-full font-ropaSans"
+      style={{ color: theme.text.primary }}
+    >
       <div className="flex flex-col w-full relative ">
-        <div className="border borber-b border-[0.05rem] border-white border-opacity-10" />
+        <div 
+          className="border borber-b border-[0.05rem]" 
+          style={{ borderColor: theme.border.primary }}
+        />
         <div className="w-full flex flex-row gap-x-20 py-10">
           <div className="flex flex-col gap-y-4 px-4 md:w-1/2  lg:pl-48">
             {(displayQuery !== "why-hire-a-nana" &&
@@ -232,18 +248,24 @@ export default function Search() {
                 >
                   {!showMore && (
                     <>
-                      <h2>
-                        <span className="bg-[#735B95] py-1">
-                          I love learning everything I can.
-                        </span>
-                      </h2>
-                      <h2 className="">
-                        <span className="bg-[#735B95]  py-1">
-                          seeking global opportunities to specialize in emerging
-                          technologies and apply my skills in software, machine 
-                          learning, and deep learning.
-                        </span>
-                      </h2>
+                                          <h2>
+                      <span 
+                        className="py-1"
+                        style={{ backgroundColor: theme.text.accent }}
+                      >
+                        I love learning everything I can.
+                      </span>
+                    </h2>
+                    <h2 className="">
+                      <span 
+                        className="py-1"
+                        style={{ backgroundColor: theme.text.accent }}
+                      >
+                        seeking global opportunities to specialize in emerging
+                        technologies and apply my skills in software, machine 
+                        learning, and deep learning.
+                      </span>
+                    </h2>
                     </>
                   )}
 
@@ -290,16 +312,79 @@ export default function Search() {
                     domains and industries.
                   </h2>
 
+                  <div className="flex flex-col md:flex-row gap-4 w-full">
+                    <Link
+                      href="/search?q=nana-projects"
+                      className="flex flex-row w-full items-center justify-center rounded-md p-4 transform transition-all duration-300"
+                      style={{ 
+                        border: `1px solid ${theme.border.accent}`,
+                        color: theme.text.secondary
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = theme.border.accent;
+                        e.currentTarget.style.color = theme.bg.primary;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                        e.currentTarget.style.color = theme.text.secondary;
+                      }}
+                    >
+                      discover my projects
+                    </Link>
+                    
+                    <Link
+                      href="/resume.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex flex-row w-full items-center justify-center rounded-md p-4 transform transition-all duration-300"
+                      style={{ 
+                        border: `1px solid ${theme.border.accent}`,
+                        color: theme.text.secondary
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = theme.border.accent;
+                        e.currentTarget.style.color = theme.bg.primary;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                        e.currentTarget.style.color = theme.text.secondary;
+                      }}
+                    >
+                      view my resume
+                    </Link>
+                  </div>
+
                   {!showMore && (
-                    <div className="bg-gradient-to-t from-dark-purple-300 via-dark-purple-200 via-dark-purple-100 to-transparent absolute -bottom-6 h-10 w-full" />
+                    <div 
+                      className="absolute -bottom-6 h-10 w-full"
+                      style={{
+                        background: `linear-gradient(to top, ${theme.bg.primary}, ${theme.bg.secondary}, transparent)`
+                      }}
+                    />
                   )}
                 </div>
 
                 {!showMore && (
-                  <div className="flex flex-col justify-end bg-gradient-to-t from-dark-purple-300 to-transparent md:px-48  absolute left-0 w-full h-28 -bottom-8">
+                  <div 
+                    className="flex flex-col justify-end md:px-48 absolute left-0 w-full h-28 -bottom-8"
+                    style={{
+                      background: `linear-gradient(to top, ${theme.bg.primary}, transparent)`
+                    }}
+                  >
                     <div
                       onClick={() => setShowMore(!showMore)}
-                      className="mt-3 py-3 border border-accent-color w-full rounded-full md:w-2/3 lg:w-2/5 bg-dark-purple-200 flex items-center justify-center hover:bg-[#322C48] gap-x-2 cursor-pointer"
+                      className="mt-3 py-3 w-full rounded-full md:w-2/3 lg:w-2/5 flex items-center justify-center gap-x-2 cursor-pointer"
+                      style={{
+                        border: `1px solid ${theme.border.secondary}`,
+                        backgroundColor: theme.bg.secondary,
+                        color: theme.text.secondary
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = theme.bg.tertiary;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = theme.bg.secondary;
+                      }}
                     >
                       <h2>Show More</h2>
                       <svg
@@ -313,7 +398,10 @@ export default function Search() {
                       </svg>
                     </div>
 
-                    <div className="border borber-b border-[0.05rem] border-accent-text border-opacity-50 w-full mt-3" />
+                    <div 
+                      className="border borber-b border-[0.05rem] w-full mt-3" 
+                      style={{ borderColor: theme.border.primary }}
+                    />
                   </div>
                 )}
               </div>
@@ -321,7 +409,13 @@ export default function Search() {
           </div>
 
           {displayQuery !== "why-hire-a-nana" && (
-            <div className="hidden w-1/3 p-2 h-[40rem] border-[0.05rem] border-white border-opacity-30 shadow-xl rounded-lg md:flex flex-col gap-y-3 ">
+            <div 
+              className="hidden w-1/3 p-2 h-[40rem] border-[0.05rem] shadow-xl rounded-lg md:flex flex-col gap-y-3"
+              style={{ 
+                borderColor: `${theme.text.primary}30`,
+                boxShadow: `0 25px 50px -12px ${theme.shadow}`
+              }}
+            >
               
               
               <img
