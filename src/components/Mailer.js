@@ -1,8 +1,10 @@
 "use client";
 import { useState } from "react";
 import axios from "axios";
+import { useTheme } from "../contexts/ThemeContext";
 
 export default function Mailer({ isExpand, setIsExpand, setIsOpen, isOpen }) {
+  const { theme } = useTheme();
   const [email, setEmail] = useState("");
   const [cc, setCC] = useState("");
   const [bcc, setBCC] = useState("");
@@ -57,14 +59,21 @@ export default function Mailer({ isExpand, setIsExpand, setIsOpen, isOpen }) {
 
   return (
     <div
-      className={` font-ropaSans bg-white w-4/5 h-4/5 ${
+      className={`font-ropaSans w-4/5 h-4/5 ${
         isMinimize
           ? "md:w-[25rem]"
           : `${isExpand ? "md:w-4/5 md:h-4/5" : "md:w-[35rem] md:h-[35rem]"} `
       } rounded-t-xl flex flex-col font-light`}
+      style={{ backgroundColor: theme.bg.card }}
     >
       {resp == "Email sent successfuly! I'll get to you in bit." && <Notif />}
-      <div className="rounded-t-xl text-sm font-semibold text-white flex flex-row w-full bg-[#736B90] h-10 items-center justify-between p-2">
+      <div 
+        className="rounded-t-xl text-sm font-semibold flex flex-row w-full h-10 items-center justify-between p-2"
+        style={{ 
+          backgroundColor: theme.bg.accent,
+          color: theme.text.primary
+        }}
+      >
         <h2>New Message</h2>
         <div className={`flex flex-row items-end gap-x-2`}>
           <div

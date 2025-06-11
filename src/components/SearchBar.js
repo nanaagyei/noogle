@@ -3,13 +3,16 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
+import { useTheme } from "../contexts/ThemeContext";
 
 export default function SearchBar({ query }) {
+  const { theme, isDark } = useTheme();
   const [search, setSearch] = useState("Search (N)oogle");
   const [showSearch, setShowSearch] = useState(false);
   const dropdownRef = useRef(null);
   const searches = [
     { search: "nana's projects", param: "nana-projects" },
+    { search: "experiences", param: "experience" },
     { search: "life", param: "life" },
     { search: "why hire a nana", param: "why-hire-a-nana" },
   ];
@@ -62,8 +65,8 @@ export default function SearchBar({ query }) {
     })
   };
 
-  // Sophisticated color palette that blends with dark purple background
-  const letterColors = [
+  // Dynamic color palette that adapts to theme
+  const letterColors = isDark ? [
     "#9CA3AF", // ( - Cool grey
     "#C48DF6", // N - Your signature purple
     "#9CA3AF", // ) - Cool grey
@@ -72,10 +75,19 @@ export default function SearchBar({ query }) {
     "#93C5FD", // g - Soft blue
     "#D1D5DB", // l - Warm grey
     "#B4A7D6"  // e - Muted lavender
+  ] : [
+    "#6B7280", // ( - Medium grey
+    "#7C3AED", // N - Rich purple
+    "#6B7280", // ) - Medium grey
+    "", // o - Very dark slate
+    "#8B5CF6", // o - Purple
+    "#3B82F6", // g - Blue
+    "#6B7280", // l - Medium grey
+    "#A855F7"  // e - Purple variant
   ];
 
   // Enhanced hover colors for transitions
-  const hoverColors = [
+  const hoverColors = isDark ? [
     "#D1D5DB", // ( - Lighter grey
     "#DDA8F8", // N - Brighter purple
     "#D1D5DB", // ) - Lighter grey
@@ -84,6 +96,15 @@ export default function SearchBar({ query }) {
     "#BFDBFE", // g - Bright blue
     "#E5E7EB", // l - Bright grey
     "#D8B4FE"  // e - Bright lavender
+  ] : [
+    "#9CA3AF", // ( - Light grey
+    "#A855F7", // N - Bright purple
+    "#9CA3AF", // ) - Light grey
+    "#111827", // o - Very dark grey
+    "#A855F7", // o - Bright purple
+    "#2563EB", // g - Bright blue
+    "#9CA3AF", // l - Light grey
+    "#C084FC"  // e - Bright purple
   ];
 
   // Split (N)oogle into individual letters
@@ -121,7 +142,14 @@ export default function SearchBar({ query }) {
           transition={{ duration: 1, delay: 0.5 }}
         >
           {/* Background glow effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-slate-500/10 to-blue-500/10 blur-3xl rounded-full transform scale-150" />
+          <div 
+            className="absolute inset-0 blur-3xl rounded-full transform scale-150"
+            style={{
+              background: isDark 
+                ? 'linear-gradient(to right, rgba(139, 92, 246, 0.1), rgba(100, 116, 139, 0.1), rgba(59, 130, 246, 0.1))'
+                : 'linear-gradient(to right, rgba(124, 58, 237, 0.05), rgba(99, 102, 241, 0.05), rgba(59, 130, 246, 0.05))'
+            }}
+          />
           
           {/* Main letters container */}
           <div className="relative text-7xl lg:text-8xl xl:text-9xl flex items-center justify-center">
@@ -153,8 +181,12 @@ export default function SearchBar({ query }) {
                 
                 {/* Enhanced hover color and glow */}
                 <motion.span
+                  key={`${letter}-${index}-${isDark}`} // Force re-render on theme change
                   className="relative z-10"
-                  initial={{ color: letterColors[index] }}
+                  animate={{ 
+                    color: letterColors[index],
+                    textShadow: `0 0 20px ${letterColors[index]}40`
+                  }}
                   whileHover={{ 
                     color: hoverColors[index],
                     textShadow: [
@@ -175,10 +207,16 @@ export default function SearchBar({ query }) {
           {[...Array(8)].map((_, i) => (
             <motion.div
               key={i}
-              className={`absolute w-1 h-1 rounded-full ${
-                i % 3 === 0 ? 'bg-purple-400/60' : 
-                i % 3 === 1 ? 'bg-slate-400/60' : 'bg-blue-400/60'
-              }`}
+              className="absolute w-1 h-1 rounded-full"
+              style={{
+                backgroundColor: isDark 
+                  ? (i % 3 === 0 ? 'rgba(196, 141, 246, 0.6)' : 
+                     i % 3 === 1 ? 'rgba(148, 163, 184, 0.6)' : 'rgba(147, 197, 253, 0.6)')
+                  : (i % 3 === 0 ? 'rgba(124, 58, 237, 0.4)' : 
+                     i % 3 === 1 ? 'rgba(107, 114, 128, 0.4)' : 'rgba(59, 130, 246, 0.4)'),
+                left: `${15 + i * 8}%`,
+                top: "60%"
+              }}
               initial={{ opacity: 0 }}
               animate={{
                 opacity: [0, 0.8, 0],
@@ -192,10 +230,6 @@ export default function SearchBar({ query }) {
                 delay: i * 0.4,
                 ease: "easeOut"
               }}
-              style={{
-                left: `${15 + i * 8}%`,
-                top: "60%"
-              }}
             />
           ))}
         </motion.div>
@@ -206,7 +240,11 @@ export default function SearchBar({ query }) {
         className={`flex flex-col items-center shadow-lg ${
           (path !== "/" && "md:absolute w-full top-6 left-48 md:w-2/5 ") ||
           "absolute w-11/12 md:w-2/3 lg:w-2/5"
-        } ${showSearch ? "rounded-3xl" : "rounded-full"} py-2 bg-accent-color`}
+        } ${showSearch ? "rounded-3xl" : "rounded-full"} py-2`}
+        style={{ 
+          backgroundColor: theme.bg.accent,
+          boxShadow: `0 10px 15px -3px ${theme.shadow}, 0 4px 6px -2px ${theme.shadow}`
+        }}
       >
         <div className="flex items-center w-full px-4">
           <div
@@ -219,9 +257,11 @@ export default function SearchBar({ query }) {
             onClick={() => setShowSearch(!showSearch)}
           />
           <div
-            className={`flex-grow px-4 py-2 bg-accent-color focus:outline-none ${
-              search === "Search (N)oogle" ? "text-accent-text" : "text-white"
-            }`}
+            className="flex-grow px-4 py-2 focus:outline-none cursor-pointer"
+            style={{ 
+              backgroundColor: theme.bg.accent,
+              color: search === "Search (N)oogle" ? theme.text.muted : theme.text.primary
+            }}
             onClick={() => setShowSearch(!showSearch)}
           >
             {(query && searches.find((item) => item.param === query)?.search) ||
@@ -244,16 +284,28 @@ export default function SearchBar({ query }) {
               style={{ backgroundImage: "url(icons/calendar.svg)" }}
             />
             <div
-              className={`bg-[#15131B] hidden md:${
+              className={`hidden md:${
                 tooltip ? "block" : "hidden"
-              } text-white absolute p-2 rounded-xl px-4 text-xs text-nowrap border border-accent-text border-opacity-40 top-12`}
+              } absolute p-2 rounded-xl px-4 text-xs text-nowrap top-12`}
+              style={{
+                backgroundColor: theme.bg.modal,
+                color: theme.text.primary,
+                border: `1px solid ${theme.border.primary}`,
+                boxShadow: `0 4px 6px -1px ${theme.shadow}`
+              }}
             >
               book a call
             </div>
             <div
-              className={`bg-[#15131B] hidden md:${
+              className={`hidden md:${
                 tooltip2 ? "block" : "hidden"
-              } text-white absolute p-2 rounded-xl px-4 text-xs text-nowrap border border-accent-text border-opacity-40 top-12`}
+              } absolute p-2 rounded-xl px-4 text-xs text-nowrap top-12`}
+              style={{
+                backgroundColor: theme.bg.modal,
+                color: theme.text.primary,
+                border: `1px solid ${theme.border.primary}`,
+                boxShadow: `0 4px 6px -1px ${theme.shadow}`
+              }}
             >
               this just looks cool
             </div>
@@ -269,13 +321,26 @@ export default function SearchBar({ query }) {
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              <div className="border-b border-accent-text mx-4" />
-              <h2 className="px-4 font-semibold text-md text-accent-text mt-2">
+              <div 
+                className="border-b mx-4" 
+                style={{ borderColor: theme.border.primary }}
+              />
+              <h2 
+                className="px-4 font-semibold text-md mt-2"
+                style={{ color: theme.text.muted }}
+              >
                 Trending searches
               </h2>
               {searches.map((item, idx) => (
                 <Link
-                  className="px-4 flex flex-row items-center w-full gap-x-2 text-[#E5DFFF] py-2 rounded-lg hover:bg-white hover:bg-opacity-5 transition duration-200"
+                  className="px-4 flex flex-row items-center w-full gap-x-2 py-2 rounded-lg transition duration-200"
+                  style={{ color: theme.text.secondary }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = `${theme.text.primary}05`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                  }}
                   href={`/search?q=${encodeURIComponent(item.param)}`}
                   key={idx}
                   onClick={() => setShowSearch(false)}

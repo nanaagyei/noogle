@@ -4,6 +4,8 @@ import "./globals.css"; // Your global styles
 import { Roboto, Ropa_Sans } from "next/font/google";
 import Footer from "@/components/Footer";
 import Mailer from "@/components/Mailer";
+import { ThemeProvider } from "../contexts/ThemeContext";
+import LayoutWrapper from "../components/LayoutWrapper";
 import { useState, Suspense } from "react";
 
 const roboto = Roboto({
@@ -25,7 +27,7 @@ export default function RootLayout({ children }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <html lang="en" className={`${ropaSans.variable} bg-dark-purple-100`}>
+    <html lang="en" className={`${ropaSans.variable}`}>
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -68,47 +70,51 @@ export default function RootLayout({ children }) {
         <meta name="twitter:description" content="my very own g*ogle" />
       </head>
       <body className="flex flex-col min-h-screen relative">
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-TRZSNGGH"
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          ></iframe>
-        </noscript>
-        <Suspense fallback={<div>Loading Header...</div>}>
-          <Header setShowMailer={setIsOpen} />
-        </Suspense>
-
-        <main className="flex-grow flex">
-          <div className="w-full">
-            <Suspense fallback={<div>Loading Body...</div>}>
-              {children}
+        <ThemeProvider>
+          <LayoutWrapper>
+            <noscript>
+              <iframe
+                src="https://www.googletagmanager.com/ns.html?id=GTM-TRZSNGGH"
+                height="0"
+                width="0"
+                style={{ display: "none", visibility: "hidden" }}
+              ></iframe>
+            </noscript>
+            <Suspense fallback={<div>Loading Header...</div>}>
+              <Header setShowMailer={setIsOpen} />
             </Suspense>
-          </div>
-        </main>
 
-        {isOpen && (
-          <Suspense fallback={<div>Loading Mailer...</div>}>
-            <div
-              className={`${
-                isExpand
-                  ? "fixed inset-0 bg-gray-900 bg-opacity-70 z-40 flex items-center justify-center"
-                  : "fixed inset-0 bg-gray-900 bg-opacity-7 flex items-center justify-center md:block  md:bg-transparent md:inset-auto md:bottom-0 md:right-0 shadow-2xl"
-              } `}
-              style={{ zIndex: 100 }}
-            >
-              <Mailer
-                isExpand={isExpand}
-                isOpen={isOpen}
-                setIsExpand={setIsExpand}
-                setIsOpen={setIsOpen}
-              />
-            </div>
-          </Suspense>
-        )}
+            <main className="flex-grow flex">
+              <div className="w-full">
+                <Suspense fallback={<div>Loading Body...</div>}>
+                  {children}
+                </Suspense>
+              </div>
+            </main>
 
-        <Footer />
+            {isOpen && (
+              <Suspense fallback={<div>Loading Mailer...</div>}>
+                <div
+                  className={`${
+                    isExpand
+                      ? "fixed inset-0 bg-gray-900 bg-opacity-70 z-40 flex items-center justify-center"
+                      : "fixed inset-0 bg-gray-900 bg-opacity-7 flex items-center justify-center md:block  md:bg-transparent md:inset-auto md:bottom-0 md:right-0 shadow-2xl"
+                  } `}
+                  style={{ zIndex: 100 }}
+                >
+                  <Mailer
+                    isExpand={isExpand}
+                    isOpen={isOpen}
+                    setIsExpand={setIsExpand}
+                    setIsOpen={setIsOpen}
+                  />
+                </div>
+              </Suspense>
+            )}
+
+            <Footer />
+          </LayoutWrapper>
+        </ThemeProvider>
       </body>
     </html>
   );
