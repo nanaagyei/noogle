@@ -193,7 +193,13 @@ export default function Search() {
                 className="relative w-full h-full overflow-y-scroll overflow-x-hidden text-wrap scroll-smooth"
                 style={{ scrollbarWidth: "1" }}
               >
-                <div className="font-thin">{data.longDescription}</div>
+                <div className="font-thin">
+                  {data.longDescription.split('\n').map((line, index) => (
+                    <div key={index} className="mb-2">
+                      {line}
+                    </div>
+                  ))}
+                </div>
               </div>
 
               <div className="flex flex-row w-full gap-x-2">
