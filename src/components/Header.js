@@ -106,13 +106,23 @@ export default function Header({ setShowMailer }) {
             (N)oogle
           </Link>
         )) || (
-          <Link
-            href="/about"
-            className="cursor-pointer hover:opacity-70 transform transition-all duration-300"
-            style={{ color: theme.text.secondary }}
-          >
-            About
-          </Link>
+          <>
+            <Link
+              href="/about"
+              className="cursor-pointer hover:opacity-70 transform transition-all duration-300"
+              style={{ color: theme.text.secondary }}
+            >
+              About
+            </Link>
+            <Link
+              href="https://calendly.com/tuffourp/zoom-meeting"
+              target="_blank"
+              className="cursor-pointer hover:opacity-70 transform transition-all duration-300"
+              style={{ color: theme.text.secondary }}
+            >
+              Book A Call
+            </Link>
+          </>
         )}
 
         {path !== "/" && <SearchBar query={displayQuery} />}

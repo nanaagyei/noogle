@@ -27,7 +27,7 @@ export default function Search() {
     (displayQuery == "nana-projects" && [...projects]?.reverse()) ||
     (displayQuery == "experience" && experiences) ||
     (displayQuery == "life" && [...life]?.reverse()) ||
-    (displayQuery == "why-hire-a-nana" && whyHire);
+    (displayQuery == "why-hire-nana" && whyHire);
 
   const [showMore, setShowMore] = useState(false);
   const [isOpen, setIsOpen] = useState(project === "gradgptpro" ? true : false);
@@ -226,7 +226,7 @@ export default function Search() {
         />
         <div className="w-full flex flex-row gap-x-20 py-10">
           <div className="flex flex-col gap-y-4 px-4 md:w-1/2  lg:pl-48">
-            {(displayQuery !== "why-hire-a-nana" &&
+            {(displayQuery !== "why-hire-nana" &&
               displayData?.map((data, idx) => (
                 <div key={idx}>
                   <SearchItem data={data} />
@@ -241,33 +241,32 @@ export default function Search() {
                   <h2>AI Overview</h2>
                 </div>
 
+                <div className="flex flex-col gap-y-3">
+                  <h2>
+                    <span 
+                      className="py-1"
+                      style={{ backgroundColor: theme.text.accent }}
+                    >
+                      I love learning everything I can.
+                    </span>
+                  </h2>
+                  <h2 className="">
+                    <span 
+                      className="py-1"
+                      style={{ backgroundColor: theme.text.accent }}
+                    >
+                      seeking global opportunities to specialize in emerging
+                      technologies and apply my skills in software, machine 
+                      learning, and deep learning.
+                    </span>
+                  </h2>
+                </div>
+
                 <div
                   className={`flex flex-col gap-y-3 relative ${
                     showMore ? "h-auto" : "h-40 overflow-y-hidden"
                   }`}
                 >
-                  {!showMore && (
-                    <>
-                                          <h2>
-                      <span 
-                        className="py-1"
-                        style={{ backgroundColor: theme.text.accent }}
-                      >
-                        I love learning everything I can.
-                      </span>
-                    </h2>
-                    <h2 className="">
-                      <span 
-                        className="py-1"
-                        style={{ backgroundColor: theme.text.accent }}
-                      >
-                        seeking global opportunities to specialize in emerging
-                        technologies and apply my skills in software, machine 
-                        learning, and deep learning.
-                      </span>
-                    </h2>
-                    </>
-                  )}
 
                   <h2>
                     With a strong foundation in mathematics and programming, I've dedicated
@@ -408,7 +407,7 @@ export default function Search() {
             )}
           </div>
 
-          {displayQuery !== "why-hire-a-nana" && (
+          {displayQuery !== "why-hire-nana" && (
             <div 
               className="hidden w-1/3 p-2 h-[40rem] border-[0.05rem] shadow-xl rounded-lg md:flex flex-col gap-y-3"
               style={{ 
@@ -499,7 +498,7 @@ export default function Search() {
         {isOpen && <SearchItemOpen data={selectedSearch} />}
       </div>
 
-      {displayQuery == "why-hire-a-nana" && !showMore && (
+      {displayQuery == "why-hire-nana" && !showMore && (
         <div className="pl-10 md:pl-48 pt-16 flex flex-col gap-y-2">
           <h2 className="text-sm">
             Your search - <span className="font-bold">why hire a nana</span> -
