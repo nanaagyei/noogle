@@ -14,7 +14,8 @@ export default function SearchBar({ query }) {
     { search: "nana's projects", param: "nana-projects" },
     { search: "experiences", param: "experience" },
     { search: "life", param: "life" },
-    { search: "why hire a nana", param: "why-hire-a-nana" },
+    { search: "why hire nana", param: "why-hire-nana" },
+    { search: "view my resume", href: "/resume.pdf", isDirectLink: true },
   ];
   const path = usePathname();
 
@@ -341,7 +342,8 @@ export default function SearchBar({ query }) {
                   onMouseLeave={(e) => {
                     e.currentTarget.style.backgroundColor = 'transparent';
                   }}
-                  href={`/search?q=${encodeURIComponent(item.param)}`}
+                  href={item.isDirectLink ? item.href : `/search?q=${encodeURIComponent(item.param)}`}
+                  target={item.isDirectLink ? "_blank" : undefined}
                   key={idx}
                   onClick={() => setShowSearch(false)}
                 >
