@@ -129,6 +129,36 @@ export default function Search() {
   };
 
   const SearchItemOpen = ({ data }) => {
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    
+    // Get all available images for this item
+    const getImages = () => {
+      // For photography entries, we'll use multiple images
+      if (data.alias === "photography") {
+        return [
+          `/search-img/${data.alias}-banner.png`,
+          `/search-img/${data.alias}-banner-2.png`,
+          `/search-img/${data.alias}-banner-3.png`,
+        ];
+      }
+      // For other entries, just use the single banner
+      return [`/search-img/${data.alias}-banner.png`];
+    };
+    
+    const images = getImages();
+    
+    const nextImage = () => {
+      setCurrentImageIndex((prevIndex) => 
+        prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      );
+    };
+    
+    const prevImage = () => {
+      setCurrentImageIndex((prevIndex) => 
+        prevIndex === 0 ? images.length - 1 : prevIndex - 1
+      );
+    };
+    
     return (
       <div>
         <div className="fixed inset-0 z-40 flex items-center justify-center" style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)' }}>
@@ -148,10 +178,39 @@ export default function Search() {
             </div>
 
             <div className="relative w-full h-2/5 md:h-3/5 rounded-lg overflow-hidden">
+              {images.length > 1 && (
+                <>
+                  <div 
+                    className="absolute left-2 top-1/2 transform -translate-y-1/2 z-10 bg-black bg-opacity-50 rounded-full p-2 cursor-pointer"
+                    onClick={prevImage}
+                  >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                  <div 
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 z-10 bg-black bg-opacity-50 rounded-full p-2 cursor-pointer"
+                    onClick={nextImage}
+                  >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9 6L15 12L9 18" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                  <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 z-10 flex space-x-2">
+                    {images.map((_, index) => (
+                      <div 
+                        key={index}
+                        className={`w-2 h-2 rounded-full ${index === currentImageIndex ? 'bg-white' : 'bg-white bg-opacity-50'}`}
+                        onClick={() => setCurrentImageIndex(index)}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
               <Image
-                src={`/search-img/${data.alias}-banner.png`}
+                src={images[currentImageIndex]}
                 alt={`${data.alias} banner`}
-                layout="fill" // Ensures it takes up the full parent size
+                layout="fill"
                 objectFit="contain"
                 priority
               />
