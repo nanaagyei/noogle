@@ -6,6 +6,7 @@ import projects from "../../data/projects.json";
 import experiences from "../../data/experience.json";
 import life from "../../data/life.json";
 import whyHire from "../../data/why.json";
+import blog from "../../data/blog.json";
 import Image from "next/image";
 import { Tenor_Sans } from "next/font/google";
 import { useTheme } from "../../contexts/ThemeContext";
@@ -27,6 +28,7 @@ export default function Search() {
     (displayQuery == "nana-projects" && [...projects]?.reverse()) ||
     (displayQuery == "experience" && experiences) ||
     (displayQuery == "life" && [...life]?.reverse()) ||
+    (displayQuery == "blog" && [...blog]?.reverse()) ||
     (displayQuery == "why-hire-nana" && whyHire);
 
   const [showMore, setShowMore] = useState(false);
@@ -81,11 +83,16 @@ export default function Search() {
   }, [project, searchParams, router]);
 
   const handleSelect = (data) => {
+    // Don't open modal for blog posts since they have their own pages
+    if (displayQuery === "blog") return;
+    
     setIsOpen(true);
     setSelectedSearch(data);
   };
 
   const SearchItem = ({ data }) => {
+    const isBlogPost = displayQuery === "blog";
+    
     return (
       <div
         className="font-ropaSans flex flex-row gap-x-2"
@@ -107,14 +114,44 @@ export default function Search() {
               <h2 className="opacity-75 text-sm">{data.timeline}</h2>
             </div>
           </div>
-          <h2
-            className="text-xl hover:underline cursor-pointer"
-            style={{ color: theme.text.link }}
-            onClick={() => handleSelect(data)}
-          >
-            {data.headline}
-          </h2>
+          {isBlogPost ? (
+            <Link
+              href={`/blog/${data.id}`}
+              className="text-xl hover:underline cursor-pointer block"
+              style={{ color: theme.text.link }}
+            >
+              {data.headline}
+            </Link>
+          ) : (
+            <h2
+              className="text-xl hover:underline cursor-pointer"
+              style={{ color: theme.text.link }}
+              onClick={() => handleSelect(data)}
+            >
+              {data.headline}
+            </h2>
+          )}
           <h2 style={{ color: theme.text.muted }}>{data.searchDescription}</h2>
+          {isBlogPost && (
+            <div className="flex items-center gap-x-2 mt-2">
+              <span className="text-sm opacity-75">{data.readTime}</span>
+              <span className="text-sm opacity-75">•</span>
+              <div className="flex gap-x-1">
+                {data.tags.slice(0, 2).map((tag, index) => (
+                  <span 
+                    key={index}
+                    className="text-xs px-2 py-1 rounded-full"
+                    style={{ 
+                      backgroundColor: theme.bg.tertiary,
+                      color: theme.text.secondary
+                    }}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         <Image
@@ -486,6 +523,8 @@ export default function Search() {
                 src={
                   displayQuery == "life"
                     ? "search-img/life.JPG"
+                    : displayQuery == "blog"
+                    ? "search-img/blog-banner.png"
                     : "https://github-readme-stats.vercel.app/api/top-langs/?username=nanaagyei&layout=compact&theme=nightowl&hide_border=true&langs_count=6&show_icons=true"
                 }
                 alt="nanaagyei"
@@ -534,6 +573,19 @@ export default function Search() {
                     </div>
                   </div>
                 </div>
+              )) || (displayQuery == "blog" && (
+                <div className="flex flex-col gap-y-3 p-2">
+                  <h2 className="text-xl">"Sharing knowledge is my passion"</h2>
+                  <h2 className="opacity-70 text-lg">
+                    Welcome to my personal blog where I share insights, experiences, and lessons learned from my journey in tech, entrepreneurship, and life.
+                  </h2>
+                  <h2 className="opacity-70 text-lg">
+                    From machine learning tutorials to startup lessons, I write about the things that excite me and the challenges that teach me.
+                  </h2>
+                  <h2 className="opacity-70 text-lg">
+                    Join me as I explore the intersection of mathematics, technology, and human experience.
+                  </h2>
+                </div>
               )) || (
                 <div className="flex flex-col gap-y-3 p-2">
                   <h2 className="text-xl">"Lead a life worth telling"</h2>
@@ -560,7 +612,7 @@ export default function Search() {
           )}
         </div>
 
-        {isOpen && <SearchItemOpen data={selectedSearch} />}
+        {isOpen && displayQuery !== "blog" && <SearchItemOpen data={selectedSearch} />}
       </div>
 
       {displayQuery == "why-hire-nana" && !showMore && (

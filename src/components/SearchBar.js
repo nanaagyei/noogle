@@ -15,6 +15,7 @@ export default function SearchBar({ query }) {
     { search: "experiences", param: "experience" },
     { search: "life", param: "life" },
     { search: "why hire nana", param: "why-hire-nana" },
+    { search: "my personal blog", param: "blog" },
     { search: "view my resume", href: "/resume.pdf", isDirectLink: true },
   ];
   const path = usePathname();

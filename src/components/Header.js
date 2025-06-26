@@ -53,7 +53,7 @@ export default function Header({ setShowMailer }) {
     {
       text: "articles",
       icon: "articles.svg",
-      url: "https://medium.com/@tuffourp",
+      url: "/search?q=blog",
     },
   ];
 

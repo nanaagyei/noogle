@@ -1,0 +1,241 @@
+[
+  {
+    "id": "getting-started-with-machine-learning",
+    "title": "Getting Started with Machine Learning: A Mathematician's Perspective",
+    "alias": "ml-intro",
+    "headline": "How I discovered that machine learning is just fancy math with computers",
+    "timeline": "March 15, 2024",
+    "searchDescription": "A beginner-friendly guide to machine learning from someone who thought they knew math until they met neural networks",
+    "excerpt": "When I first started learning machine learning, I thought my mathematical background would make it easy. Boy, was I wrong...",
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "When I first started learning machine learning, I thought my mathematical background would make it easy. Boy, was I wrong. Machine learning is like math's rebellious teenager - it uses all the same principles but insists on doing things its own way."
+      },
+      {
+        "type": "paragraph",
+        "text": "In this post, I'll share my journey from mathematical theory to practical ML applications, including the mistakes I made and the lessons I learned along the way."
+      },
+      {
+        "type": "heading",
+        "text": "The Mathematical Foundation"
+      },
+      {
+        "type": "paragraph",
+        "text": "At its core, machine learning is built on three mathematical pillars: linear algebra, calculus, and statistics. But here's the thing - understanding these concepts theoretically is one thing. Applying them to real-world problems is a completely different beast."
+      },
+      {
+        "type": "image",
+        "src": "/blog-img/ml-math-diagram.png",
+        "alt": "Mathematical concepts in machine learning",
+        "caption": "How linear algebra, calculus, and statistics come together in ML"
+      },
+      {
+        "type": "heading",
+        "text": "My First Neural Network"
+      },
+      {
+        "type": "paragraph",
+        "text": "I decided to start with a simple neural network for image classification. Here's the code that changed everything for me:"
+      },
+      {
+        "type": "code",
+        "language": "python",
+        "code": "import tensorflow as tf\nfrom tensorflow import keras\n\n# Define a simple neural network\nmodel = keras.Sequential([\n    keras.layers.Flatten(input_shape=(28, 28)),\n    keras.layers.Dense(128, activation='relu'),\n    keras.layers.Dropout(0.2),\n    keras.layers.Dense(10, activation='softmax')\n])\n\n# Compile the model\nmodel.compile(optimizer='adam',\n              loss='sparse_categorical_crossentropy',\n              metrics=['accuracy'])"
+      },
+      {
+        "type": "paragraph",
+        "text": "This simple 10-line code block took me three days to understand. The math behind it? That took another week. But once I got it, everything clicked."
+      },
+      {
+        "type": "heading",
+        "text": "The Learning Curve"
+      },
+      {
+        "type": "paragraph",
+        "text": "Here's what I wish someone had told me when I started:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Start with simple problems - don't try to build GPT-4 on day one",
+          "Focus on understanding the intuition, not just the math",
+          "Practice with real datasets, not just toy examples",
+          "Join communities and don't be afraid to ask questions"
+        ]
+      },
+      {
+        "type": "image",
+        "src": "/blog-img/learning-curve.png",
+        "alt": "Machine learning learning curve",
+        "caption": "The infamous learning curve - it gets better, I promise!"
+      },
+      {
+        "type": "heading",
+        "text": "Key Takeaways"
+      },
+      {
+        "type": "paragraph",
+        "text": "After months of learning and building, here are my main takeaways:"
+      },
+      {
+        "type": "paragraph",
+        "text": "1. **Mathematics is your friend**: Your mathematical background will help you understand the underlying principles, even if the implementation seems foreign at first."
+      },
+      {
+        "type": "paragraph",
+        "text": "2. **Practice beats theory**: You can read all the papers in the world, but nothing beats building and experimenting with real models."
+      },
+      {
+        "type": "paragraph",
+        "text": "3. **Start simple**: Begin with linear regression and work your way up. Don't skip the fundamentals."
+      },
+      {
+        "type": "paragraph",
+        "text": "4. **Community matters**: The ML community is incredibly supportive. Don't hesitate to ask questions and share your journey."
+      },
+      {
+        "type": "heading",
+        "text": "What's Next?"
+      },
+      {
+        "type": "paragraph",
+        "text": "I'm currently working on more advanced topics like computer vision and natural language processing. The journey never really ends - there's always something new to learn."
+      },
+      {
+        "type": "paragraph",
+        "text": "If you're just starting your ML journey, remember: every expert was once a beginner. Take it one step at a time, and don't be afraid to make mistakes. That's how we learn."
+      }
+    ],
+    "tags": ["Machine Learning", "Python", "Mathematics", "Beginner"],
+    "readTime": "8 min read"
+  },
+  {
+    "id": "building-my-first-saas-product",
+    "title": "Building My First SaaS Product: Lessons from the Trenches",
+    "alias": "saas-lessons",
+    "headline": "How I went from 'I can code' to 'I can build a business' (and almost lost my mind)",
+    "timeline": "April 20, 2024",
+    "searchDescription": "The real story behind building a SaaS product - the good, the bad, and the 'why did I think this was a good idea' moments",
+    "excerpt": "Building a SaaS product is like having a baby - it's exciting, terrifying, and you have no idea what you're doing...",
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Building a SaaS product is like having a baby - it's exciting, terrifying, and you have no idea what you're doing. But unlike having a baby, you can't return it to the hospital if things go wrong."
+      },
+      {
+        "type": "paragraph",
+        "text": "In this post, I'll share the honest truth about building my first SaaS product, including the mistakes I made, the lessons I learned, and why I'm still doing it despite everything."
+      },
+      {
+        "type": "heading",
+        "text": "The Idea Phase"
+      },
+      {
+        "type": "paragraph",
+        "text": "It all started with a simple problem: I was tired of manually managing my projects and wanted something that could help me stay organized. Simple, right? Wrong."
+      },
+      {
+        "type": "image",
+        "src": "/blog-img/idea-brainstorming.png",
+        "alt": "Brainstorming session for SaaS idea",
+        "caption": "The moment I thought 'this will be easy' - famous last words"
+      },
+      {
+        "type": "heading",
+        "text": "The Technical Challenges"
+      },
+      {
+        "type": "paragraph",
+        "text": "I thought building the product would be the hard part. Turns out, that was the easy part. Here's what I actually struggled with:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "User authentication and security",
+          "Payment processing integration",
+          "Database design and optimization",
+          "Deployment and scaling",
+          "User feedback and iteration"
+        ]
+      },
+      {
+        "type": "code",
+        "language": "javascript",
+        "code": "// The authentication code that took me 3 weeks to get right\nconst authenticateUser = async (email, password) => {\n  try {\n    const user = await User.findOne({ email });\n    if (!user) {\n      throw new Error('User not found');\n    }\n    \n    const isValid = await bcrypt.compare(password, user.password);\n    if (!isValid) {\n      throw new Error('Invalid password');\n    }\n    \n    const token = jwt.sign(\n      { userId: user._id },\n      process.env.JWT_SECRET,\n      { expiresIn: '24h' }\n    );\n    \n    return { user, token };\n  } catch (error) {\n    console.error('Authentication error:', error);\n    throw error;\n  }\n};"
+      },
+      {
+        "type": "paragraph",
+        "text": "This authentication code took me three weeks to get right. Three weeks! For something that should have been straightforward. But that's the reality of building a real product - the devil is in the details."
+      },
+      {
+        "type": "heading",
+        "text": "The Business Side"
+      },
+      {
+        "type": "paragraph",
+        "text": "Here's what I learned about the business side of SaaS:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Pricing is harder than coding",
+          "Customer support is a full-time job",
+          "Marketing is essential but expensive",
+          "Legal compliance is boring but necessary",
+          "Cash flow management is critical"
+        ]
+      },
+      {
+        "type": "image",
+        "src": "/blog-img/business-metrics.png",
+        "alt": "Business metrics dashboard",
+        "caption": "My first dashboard - it was mostly red numbers"
+      },
+      {
+        "type": "heading",
+        "text": "The Emotional Rollercoaster"
+      },
+      {
+        "type": "paragraph",
+        "text": "Building a SaaS product is an emotional rollercoaster. One day you're on top of the world because someone actually paid for your product. The next day you're questioning everything because your server crashed and you lost all your users."
+      },
+      {
+        "type": "paragraph",
+        "text": "The key is to focus on the long-term vision and not get too caught up in the daily ups and downs. Easier said than done, I know."
+      },
+      {
+        "type": "heading",
+        "text": "What I'd Do Differently"
+      },
+      {
+        "type": "paragraph",
+        "text": "If I could go back and do it all over again, here's what I'd change:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Start with a smaller, more focused MVP",
+          "Get user feedback earlier and more often",
+          "Invest in proper testing from the beginning",
+          "Hire help for non-technical tasks",
+          "Focus on one market segment initially"
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "The Bottom Line"
+      },
+      {
+        "type": "paragraph",
+        "text": "Building a SaaS product is hard. Really hard. But it's also incredibly rewarding. The feeling of seeing someone use your product and get value from it is indescribable."
+      },
+      {
+        "type": "paragraph",
+        "text": "If you're thinking about building a SaaS product, my advice is simple: start small, focus on solving a real problem, and don't give up when things get tough. Because they will get tough. But it's worth it."
+      }
+    ],
+    "tags": ["SaaS", "Entrepreneurship", "Product Development", "Business"],
+    "readTime": "12 min read"
+  }
+] 
