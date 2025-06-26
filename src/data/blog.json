@@ -418,79 +418,149 @@
         "text": "The future of AI is bright, and we're excited to be part of making it more accessible to everyone."
       }
     ],
-    "tags": ["GPU Memory", "PyTorch", "TensorFlow", "Machine Learning", "Open Source", "Performance", "Deep Learning"],
+    "tags": [
+      "GPU Memory",
+      "PyTorch",
+      "TensorFlow",
+      "Machine Learning",
+      "Open Source",
+      "Performance",
+      "Deep Learning"
+    ],
     "readTime": "15 min read"
   },
   {
-    "id": "gradgpt-pro-overview",
-    "title": "GradGPT Pro: Expanding Access to Graduate School Success with AI",
-    "alias": "gradgpt-pro",
-    "headline": "How AI and Open Source Are Transforming Graduate School Applications for Everyone",
-    "timeline": "November 2024 - Present",
-    "searchDescription": "A deep dive into GradGPT Pro, the AI-powered platform making graduate school application guidance accessible to all students, regardless of background.",
-    "excerpt": "GradGPT Pro is an open-source Next.js platform that uses AI to help students—especially those from underrepresented and lower-income backgrounds—navigate the complex graduate school application process. From school matching to document review, GradGPT Pro is your personal admissions assistant.",
+    "id": "building-my-first-saas-product",
+    "title": "Building My First SaaS Product: Lessons from the Trenches",
+    "alias": "saas-lessons",
+    "headline": "How I went from 'I can code' to 'I can build a business' (and almost lost my mind)",
+    "timeline": "April 20, 2024",
+    "searchDescription": "The real story behind building a SaaS product - the good, the bad, and the 'why did I think this was a good idea' moments",
+    "excerpt": "Building a SaaS product is like having a baby - it's exciting, terrifying, and you have no idea what you're doing...",
     "content": [
-      { "type": "paragraph", "text": "Applying to graduate school can be overwhelming, especially if you don't have access to expensive admissions consultants or a network of mentors. GradGPT Pro was created to level the playing field, using AI to provide personalized, step-by-step guidance for every applicant." },
-      { "type": "heading", "text": "What is GradGPT Pro?" },
-      { "type": "paragraph", "text": "GradGPT Pro is a Next.js application that leverages the power of AI to streamline and enhance the graduate school application process. Whether you're applying to a Master's, PhD, law, medical, or business program, GradGPT Pro helps you identify ideal programs, review your documents, and manage your application journey—all for free." },
-      { "type": "image", "src": "/blog-img/gradgpt-dashboard.png", "alt": "GradGPT Pro dashboard screenshot", "caption": "The GradGPT Pro dashboard: your AI-powered application command center" },
-      { "type": "heading", "text": "Key Features" },
-      { "type": "list", "items": [
-        "School Matching Algorithm: Find programs that align with your academic profile, interests, and career goals.",
-        "Document Analysis & Review: Get detailed, AI-powered feedback on your CV, statement of purpose, and personal statements.",
-        "Letter of Recommendation Assistance: Generate outlines and drafts for recommendation letters.",
-        "Application Timeline Management: Track deadlines and requirements for multiple schools in one place.",
-        "AI Writing Assistant: Improve the clarity, structure, and impact of your application documents.",
-        "Personalized Guidance: Receive tailored advice based on your background and target programs."
-      ] },
-      { "type": "heading", "text": "Why GradGPT Pro Matters" },
-      { "type": "paragraph", "text": "For many students, especially those from lower-income families or first-generation backgrounds, the graduate school application process is a maze of confusing requirements, deadlines, and essays. Professional admissions consulting can cost thousands of dollars—putting it out of reach for most. GradGPT Pro is designed to break down these barriers, offering high-quality, AI-driven support to anyone with an internet connection." },
-      { "type": "image", "src": "/blog-img/equal-access.png", "alt": "Students from diverse backgrounds using GradGPT Pro", "caption": "Expanding access: GradGPT Pro is built for everyone, not just the privileged few." },
-      { "type": "heading", "text": "How It Works: Technical Overview" },
-      { "type": "list", "items": [
-        "Next.js: Modern React framework for fast, scalable web apps.",
-        "TypeScript: Type-safe code for reliability and maintainability.",
-        "OpenAI API: Advanced AI for document review, writing assistance, and personalized advice.",
-        "Tailwind CSS: Beautiful, responsive UI components.",
-        "Vercel: Seamless deployment and hosting."
-      ] },
-      { "type": "heading", "text": "Project Structure" },
-      { "type": "code", "language": "bash", "code": "gradgpt-pro/\n├── src/              # Next.js application routes\n├── lib/              # Utility functions and API clients\n├── public/           # Static assets\n└── types/            # TypeScript type definitions" },
-      { "type": "heading", "text": "Installation & Setup" },
-      { "type": "code", "language": "bash", "code": "# Clone the repository\ngit clone https://github.com/nanaagyei/gradgpt-pro.git\ncd gradgpt-pro\n\n# Install dependencies\nnpm install\n# or\nyarn install\n# or\npnpm install" },
-      { "type": "paragraph", "text": "Create a .env.local file in the root directory with your OpenAI API key and app URL:" },
-      { "type": "code", "language": "bash", "code": "OPENAI_API_KEY=your_api_key_here\nNEXT_PUBLIC_APP_URL=http://localhost:3000" },
-      { "type": "paragraph", "text": "Start the development server:" },
-      { "type": "code", "language": "bash", "code": "npm run dev\n# or\nyarn dev\n# or\npnpm dev" },
-      { "type": "heading", "text": "Usage Examples" },
-      { "type": "heading", "text": "School Matching" },
-      { "type": "code", "language": "javascript", "code": "const matchingPrograms = await gradgpt.findPrograms({\n  gpa: 3.8,\n  greScores: { verbal: 160, quant: 165, writing: 5.0 },\n  research: ['machine learning', 'natural language processing'],\n  fieldOfStudy: 'Computer Science',\n  locationPreference: ['Northeast', 'West Coast']\n});" },
-      { "type": "heading", "text": "Document Review" },
-      { "type": "code", "language": "javascript", "code": "const feedback = await gradgpt.reviewDocument({\n  documentType: 'SOP',\n  content: statementText,\n  targetProgram: 'PhD in Computer Science',\n  school: 'Stanford University'\n});" },
-      { "type": "heading", "text": "Coming Soon: The Roadmap" },
-      { "type": "list", "items": [
-        "Robust API Layer: Scalable backend using Node.js and Express.",
-        "Microservices Structure: Modular backend for scalability and maintenance.",
-        "Rate Limiting and Caching: Optimized performance and resource usage.",
-        "Advanced OpenAI API Integration: Custom fine-tuning and multi-modal capabilities (text, images, PDFs).",
-        "Context-aware Responses: Improved relevance through better conversation state management.",
-        "Automated Program Database: Web scraping for up-to-date program details and requirements.",
-        "Admission Statistics: Historical acceptance rates and admitted student profiles.",
-        "Faculty Research Alignment: Match student interests with faculty research areas.",
-        "User Profile Storage: Secure, multi-tenant architecture for privacy.",
-        "Document Management: Version control and organization for application materials.",
-        "Advisor and Peer Review: Built-in collaboration and feedback tools."
-      ] },
-      { "type": "heading", "text": "Our Mission: Equal Access for All" },
-      { "type": "paragraph", "text": "At its core, GradGPT Pro is about democratizing access to opportunity. We believe that every student—regardless of income, geography, or background—deserves a fair shot at graduate education. By making advanced application guidance free and accessible, we're helping to close the gap for students who have the talent and drive, but not the resources, to pursue their dreams." },
-      { "type": "image", "src": "/blog-img/mission-access.png", "alt": "Students celebrating admissions offers", "caption": "Our mission: making graduate school dreams possible for everyone." },
-      { "type": "heading", "text": "Get Involved" },
-      { "type": "paragraph", "text": "GradGPT Pro is open source and always looking for contributors, testers, and advocates. If you're passionate about education, technology, or social impact, join us on GitHub or try the platform at https://gradgpt.pro/." },
-      { "type": "heading", "text": "Final Thoughts" },
-      { "type": "paragraph", "text": "The graduate school application process shouldn't be a privilege reserved for the few. With GradGPT Pro, we're building a future where every student has the tools and support they need to succeed. Try it, share it, and help us make graduate education accessible to all." }
+      {
+        "type": "paragraph",
+        "text": "Building a SaaS product is like having a baby - it's exciting, terrifying, and you have no idea what you're doing. But unlike having a baby, you can't return it to the hospital if things go wrong."
+      },
+      {
+        "type": "paragraph",
+        "text": "In this post, I'll share the honest truth about building my first SaaS product, including the mistakes I made, the lessons I learned, and why I'm still doing it despite everything."
+      },
+      {
+        "type": "heading",
+        "text": "The Idea Phase"
+      },
+      {
+        "type": "paragraph",
+        "text": "It all started with a simple problem: I was tired of manually managing my projects and wanted something that could help me stay organized. Simple, right? Wrong."
+      },
+      {
+        "type": "image",
+        "src": "/blog-img/idea-brainstorming.png",
+        "alt": "Brainstorming session for SaaS idea",
+        "caption": "The moment I thought 'this will be easy' - famous last words"
+      },
+      {
+        "type": "heading",
+        "text": "The Technical Challenges"
+      },
+      {
+        "type": "paragraph",
+        "text": "I thought building the product would be the hard part. Turns out, that was the easy part. Here's what I actually struggled with:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "User authentication and security",
+          "Payment processing integration",
+          "Database design and optimization",
+          "Deployment and scaling",
+          "User feedback and iteration"
+        ]
+      },
+      {
+        "type": "code",
+        "language": "javascript",
+        "code": "// The authentication code that took me 3 weeks to get right\nconst authenticateUser = async (email, password) => {\n  try {\n    const user = await User.findOne({ email });\n    if (!user) {\n      throw new Error('User not found');\n    }\n    \n    const isValid = await bcrypt.compare(password, user.password);\n    if (!isValid) {\n      throw new Error('Invalid password');\n    }\n    \n    const token = jwt.sign(\n      { userId: user._id },\n      process.env.JWT_SECRET,\n      { expiresIn: '24h' }\n    );\n    \n    return { user, token };\n  } catch (error) {\n    console.error('Authentication error:', error);\n    throw error;\n  }\n};"
+      },
+      {
+        "type": "paragraph",
+        "text": "This authentication code took me three weeks to get right. Three weeks! For something that should have been straightforward. But that's the reality of building a real product - the devil is in the details."
+      },
+      {
+        "type": "heading",
+        "text": "The Business Side"
+      },
+      {
+        "type": "paragraph",
+        "text": "Here's what I learned about the business side of SaaS:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Pricing is harder than coding",
+          "Customer support is a full-time job",
+          "Marketing is essential but expensive",
+          "Legal compliance is boring but necessary",
+          "Cash flow management is critical"
+        ]
+      },
+      {
+        "type": "image",
+        "src": "/blog-img/business-metrics.png",
+        "alt": "Business metrics dashboard",
+        "caption": "My first dashboard - it was mostly red numbers"
+      },
+      {
+        "type": "heading",
+        "text": "The Emotional Rollercoaster"
+      },
+      {
+        "type": "paragraph",
+        "text": "Building a SaaS product is an emotional rollercoaster. One day you're on top of the world because someone actually paid for your product. The next day you're questioning everything because your server crashed and you lost all your users."
+      },
+      {
+        "type": "paragraph",
+        "text": "The key is to focus on the long-term vision and not get too caught up in the daily ups and downs. Easier said than done, I know."
+      },
+      {
+        "type": "heading",
+        "text": "What I'd Do Differently"
+      },
+      {
+        "type": "paragraph",
+        "text": "If I could go back and do it all over again, here's what I'd change:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Start with a smaller, more focused MVP",
+          "Get user feedback earlier and more often",
+          "Invest in proper testing from the beginning",
+          "Hire help for non-technical tasks",
+          "Focus on one market segment initially"
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "The Bottom Line"
+      },
+      {
+        "type": "paragraph",
+        "text": "Building a SaaS product is hard. Really hard. But it's also incredibly rewarding. The feeling of seeing someone use your product and get value from it is indescribable."
+      },
+      {
+        "type": "paragraph",
+        "text": "If you're thinking about building a SaaS product, my advice is simple: start small, focus on solving a real problem, and don't give up when things get tough. Because they will get tough. But it's worth it."
+      }
     ],
-    "tags": ["AI", "Graduate School", "Open Source", "Education", "Next.js", "Social Impact"],
-    "readTime": "18 min read"
+    "tags": [
+      "SaaS",
+      "Entrepreneurship",
+      "Product Development",
+      "Business"
+    ],
+    "readTime": "12 min read"
   },
   {
     "id": "coursera-ml-journey",
@@ -926,7 +996,16 @@
         ]
       }
     ],
-    "tags": ["Machine Learning", "Deep Learning", "Coursera", "Andrew Ng", "Transformer", "Neural Networks", "Education", "Career Development"],
+    "tags": [
+      "Machine Learning",
+      "Deep Learning",
+      "Coursera",
+      "Andrew Ng",
+      "Transformer",
+      "Neural Networks",
+      "Education",
+      "Career Development"
+    ],
     "readTime": "20 min read"
   },
   {
@@ -1037,135 +1116,201 @@
         "text": "If you're just starting your ML journey, remember: every expert was once a beginner. Take it one step at a time, and don't be afraid to make mistakes. That's how we learn."
       }
     ],
-    "tags": ["Machine Learning", "Python", "Mathematics", "Beginner"],
+    "tags": [
+      "Machine Learning",
+      "Python",
+      "Mathematics",
+      "Beginner"
+    ],
     "readTime": "8 min read"
   },
   {
-    "id": "building-my-first-saas-product",
-    "title": "Building My First SaaS Product: Lessons from the Trenches",
-    "alias": "saas-lessons",
-    "headline": "How I went from 'I can code' to 'I can build a business' (and almost lost my mind)",
-    "timeline": "April 20, 2024",
-    "searchDescription": "The real story behind building a SaaS product - the good, the bad, and the 'why did I think this was a good idea' moments",
-    "excerpt": "Building a SaaS product is like having a baby - it's exciting, terrifying, and you have no idea what you're doing...",
+    "id": "gradgpt-pro-overview",
+    "title": "GradGPT Pro: Expanding Access to Graduate School Success with AI",
+    "alias": "gradgpt-pro",
+    "headline": "How AI and Open Source Are Transforming Graduate School Applications for Everyone",
+    "timeline": "November 2024 - Present",
+    "searchDescription": "A deep dive into GradGPT Pro, the AI-powered platform making graduate school application guidance accessible to all students, regardless of background.",
+    "excerpt": "GradGPT Pro is an open-source Next.js platform that uses AI to help students—especially those from underrepresented and lower-income backgrounds—navigate the complex graduate school application process. From school matching to document review, GradGPT Pro is your personal admissions assistant.",
     "content": [
       {
         "type": "paragraph",
-        "text": "Building a SaaS product is like having a baby - it's exciting, terrifying, and you have no idea what you're doing. But unlike having a baby, you can't return it to the hospital if things go wrong."
-      },
-      {
-        "type": "paragraph",
-        "text": "In this post, I'll share the honest truth about building my first SaaS product, including the mistakes I made, the lessons I learned, and why I'm still doing it despite everything."
+        "text": "Applying to graduate school can be overwhelming, especially if you don't have access to expensive admissions consultants or a network of mentors. GradGPT Pro was created to level the playing field, using AI to provide personalized, step-by-step guidance for every applicant."
       },
       {
         "type": "heading",
-        "text": "The Idea Phase"
+        "text": "What is GradGPT Pro?"
       },
       {
         "type": "paragraph",
-        "text": "It all started with a simple problem: I was tired of manually managing my projects and wanted something that could help me stay organized. Simple, right? Wrong."
+        "text": "GradGPT Pro is a Next.js application that leverages the power of AI to streamline and enhance the graduate school application process. Whether you're applying to a Master's, PhD, law, medical, or business program, GradGPT Pro helps you identify ideal programs, review your documents, and manage your application journey—all for free."
       },
       {
         "type": "image",
-        "src": "/blog-img/idea-brainstorming.png",
-        "alt": "Brainstorming session for SaaS idea",
-        "caption": "The moment I thought 'this will be easy' - famous last words"
+        "src": "/blog-img/gradgpt-dashboard.png",
+        "alt": "GradGPT Pro dashboard screenshot",
+        "caption": "The GradGPT Pro dashboard: your AI-powered application command center"
       },
       {
         "type": "heading",
-        "text": "The Technical Challenges"
-      },
-      {
-        "type": "paragraph",
-        "text": "I thought building the product would be the hard part. Turns out, that was the easy part. Here's what I actually struggled with:"
+        "text": "Key Features"
       },
       {
         "type": "list",
         "items": [
-          "User authentication and security",
-          "Payment processing integration",
-          "Database design and optimization",
-          "Deployment and scaling",
-          "User feedback and iteration"
+          "School Matching Algorithm: Find programs that align with your academic profile, interests, and career goals.",
+          "Document Analysis & Review: Get detailed, AI-powered feedback on your CV, statement of purpose, and personal statements.",
+          "Letter of Recommendation Assistance: Generate outlines and drafts for recommendation letters.",
+          "Application Timeline Management: Track deadlines and requirements for multiple schools in one place.",
+          "AI Writing Assistant: Improve the clarity, structure, and impact of your application documents.",
+          "Personalized Guidance: Receive tailored advice based on your background and target programs."
         ]
+      },
+      {
+        "type": "heading",
+        "text": "Why GradGPT Pro Matters"
+      },
+      {
+        "type": "paragraph",
+        "text": "For many students, especially those from lower-income families or first-generation backgrounds, the graduate school application process is a maze of confusing requirements, deadlines, and essays. Professional admissions consulting can cost thousands of dollars—putting it out of reach for most. GradGPT Pro is designed to break down these barriers, offering high-quality, AI-driven support to anyone with an internet connection."
+      },
+      {
+        "type": "image",
+        "src": "/blog-img/equal-access.png",
+        "alt": "Students from diverse backgrounds using GradGPT Pro",
+        "caption": "Expanding access: GradGPT Pro is built for everyone, not just the privileged few."
+      },
+      {
+        "type": "heading",
+        "text": "How It Works: Technical Overview"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Next.js: Modern React framework for fast, scalable web apps.",
+          "TypeScript: Type-safe code for reliability and maintainability.",
+          "OpenAI API: Advanced AI for document review, writing assistance, and personalized advice.",
+          "Tailwind CSS: Beautiful, responsive UI components.",
+          "Vercel: Seamless deployment and hosting."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Project Structure"
+      },
+      {
+        "type": "code",
+        "language": "bash",
+        "code": "gradgpt-pro/\n├── src/              # Next.js application routes\n├── lib/              # Utility functions and API clients\n├── public/           # Static assets\n└── types/            # TypeScript type definitions"
+      },
+      {
+        "type": "heading",
+        "text": "Installation & Setup"
+      },
+      {
+        "type": "code",
+        "language": "bash",
+        "code": "# Clone the repository\ngit clone https://github.com/nanaagyei/gradgpt-pro.git\ncd gradgpt-pro\n\n# Install dependencies\nnpm install\n# or\nyarn install\n# or\npnpm install"
+      },
+      {
+        "type": "paragraph",
+        "text": "Create a .env.local file in the root directory with your OpenAI API key and app URL:"
+      },
+      {
+        "type": "code",
+        "language": "bash",
+        "code": "OPENAI_API_KEY=your_api_key_here\nNEXT_PUBLIC_APP_URL=http://localhost:3000"
+      },
+      {
+        "type": "paragraph",
+        "text": "Start the development server:"
+      },
+      {
+        "type": "code",
+        "language": "bash",
+        "code": "npm run dev\n# or\nyarn dev\n# or\npnpm dev"
+      },
+      {
+        "type": "heading",
+        "text": "Usage Examples"
+      },
+      {
+        "type": "heading",
+        "text": "School Matching"
       },
       {
         "type": "code",
         "language": "javascript",
-        "code": "// The authentication code that took me 3 weeks to get right\nconst authenticateUser = async (email, password) => {\n  try {\n    const user = await User.findOne({ email });\n    if (!user) {\n      throw new Error('User not found');\n    }\n    \n    const isValid = await bcrypt.compare(password, user.password);\n    if (!isValid) {\n      throw new Error('Invalid password');\n    }\n    \n    const token = jwt.sign(\n      { userId: user._id },\n      process.env.JWT_SECRET,\n      { expiresIn: '24h' }\n    );\n    \n    return { user, token };\n  } catch (error) {\n    console.error('Authentication error:', error);\n    throw error;\n  }\n};"
-      },
-      {
-        "type": "paragraph",
-        "text": "This authentication code took me three weeks to get right. Three weeks! For something that should have been straightforward. But that's the reality of building a real product - the devil is in the details."
+        "code": "const matchingPrograms = await gradgpt.findPrograms({\n  gpa: 3.8,\n  greScores: { verbal: 160, quant: 165, writing: 5.0 },\n  research: ['machine learning', 'natural language processing'],\n  fieldOfStudy: 'Computer Science',\n  locationPreference: ['Northeast', 'West Coast']\n});"
       },
       {
         "type": "heading",
-        "text": "The Business Side"
+        "text": "Document Review"
       },
       {
-        "type": "paragraph",
-        "text": "Here's what I learned about the business side of SaaS:"
+        "type": "code",
+        "language": "javascript",
+        "code": "const feedback = await gradgpt.reviewDocument({\n  documentType: 'SOP',\n  content: statementText,\n  targetProgram: 'PhD in Computer Science',\n  school: 'Stanford University'\n});"
+      },
+      {
+        "type": "heading",
+        "text": "Coming Soon: The Roadmap"
       },
       {
         "type": "list",
         "items": [
-          "Pricing is harder than coding",
-          "Customer support is a full-time job",
-          "Marketing is essential but expensive",
-          "Legal compliance is boring but necessary",
-          "Cash flow management is critical"
+          "Robust API Layer: Scalable backend using Node.js and Express.",
+          "Microservices Structure: Modular backend for scalability and maintenance.",
+          "Rate Limiting and Caching: Optimized performance and resource usage.",
+          "Advanced OpenAI API Integration: Custom fine-tuning and multi-modal capabilities (text, images, PDFs).",
+          "Context-aware Responses: Improved relevance through better conversation state management.",
+          "Automated Program Database: Web scraping for up-to-date program details and requirements.",
+          "Admission Statistics: Historical acceptance rates and admitted student profiles.",
+          "Faculty Research Alignment: Match student interests with faculty research areas.",
+          "User Profile Storage: Secure, multi-tenant architecture for privacy.",
+          "Document Management: Version control and organization for application materials.",
+          "Advisor and Peer Review: Built-in collaboration and feedback tools."
         ]
+      },
+      {
+        "type": "heading",
+        "text": "Our Mission: Equal Access for All"
+      },
+      {
+        "type": "paragraph",
+        "text": "At its core, GradGPT Pro is about democratizing access to opportunity. We believe that every student—regardless of income, geography, or background—deserves a fair shot at graduate education. By making advanced application guidance free and accessible, we're helping to close the gap for students who have the talent and drive, but not the resources, to pursue their dreams."
       },
       {
         "type": "image",
-        "src": "/blog-img/business-metrics.png",
-        "alt": "Business metrics dashboard",
-        "caption": "My first dashboard - it was mostly red numbers"
+        "src": "/blog-img/mission-access.png",
+        "alt": "Students celebrating admissions offers",
+        "caption": "Our mission: making graduate school dreams possible for everyone."
       },
       {
         "type": "heading",
-        "text": "The Emotional Rollercoaster"
+        "text": "Get Involved"
       },
       {
         "type": "paragraph",
-        "text": "Building a SaaS product is an emotional rollercoaster. One day you're on top of the world because someone actually paid for your product. The next day you're questioning everything because your server crashed and you lost all your users."
-      },
-      {
-        "type": "paragraph",
-        "text": "The key is to focus on the long-term vision and not get too caught up in the daily ups and downs. Easier said than done, I know."
+        "text": "GradGPT Pro is open source and always looking for contributors, testers, and advocates. If you're passionate about education, technology, or social impact, join us on GitHub or try the platform at https://gradgpt.pro/."
       },
       {
         "type": "heading",
-        "text": "What I'd Do Differently"
+        "text": "Final Thoughts"
       },
       {
         "type": "paragraph",
-        "text": "If I could go back and do it all over again, here's what I'd change:"
-      },
-      {
-        "type": "list",
-        "items": [
-          "Start with a smaller, more focused MVP",
-          "Get user feedback earlier and more often",
-          "Invest in proper testing from the beginning",
-          "Hire help for non-technical tasks",
-          "Focus on one market segment initially"
-        ]
-      },
-      {
-        "type": "heading",
-        "text": "The Bottom Line"
-      },
-      {
-        "type": "paragraph",
-        "text": "Building a SaaS product is hard. Really hard. But it's also incredibly rewarding. The feeling of seeing someone use your product and get value from it is indescribable."
-      },
-      {
-        "type": "paragraph",
-        "text": "If you're thinking about building a SaaS product, my advice is simple: start small, focus on solving a real problem, and don't give up when things get tough. Because they will get tough. But it's worth it."
+        "text": "The graduate school application process shouldn't be a privilege reserved for the few. With GradGPT Pro, we're building a future where every student has the tools and support they need to succeed. Try it, share it, and help us make graduate education accessible to all."
       }
     ],
-    "tags": ["SaaS", "Entrepreneurship", "Product Development", "Business"],
-    "readTime": "12 min read"
+    "tags": [
+      "AI",
+      "Graduate School",
+      "Open Source",
+      "Education",
+      "Next.js",
+      "Social Impact"
+    ],
+    "readTime": "18 min read"
   }
-] 
+]
