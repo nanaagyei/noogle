@@ -163,7 +163,6 @@ export default function Mailer({ isExpand, setIsExpand, setIsOpen, isOpen }) {
                   <h2 style={{ color: theme.text.primary }}>Cc</h2>
                   <input
                     type={"email"}
-                    required
                     value={cc}
                     onChange={(e) => setCC(e.target.value)}
                     placeholder="Cc Email"
@@ -200,7 +199,6 @@ export default function Mailer({ isExpand, setIsExpand, setIsOpen, isOpen }) {
                   <h2 style={{ color: theme.text.primary }}>Bcc</h2>
                   <input
                     type={"email"}
-                    required
                     value={bcc}
                     onChange={(e) => setBCC(e.target.value)}
                     placeholder="Bcc Email"
@@ -235,7 +233,6 @@ export default function Mailer({ isExpand, setIsExpand, setIsOpen, isOpen }) {
           <div className="flex flex-row justify-between w-full border-b-[0.05rem] pb-2 justify-center">
             <input
               type={"text"}
-              required
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
               placeholder="Subject"

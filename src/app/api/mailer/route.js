@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { headers } from 'next/headers';
 import { SECURITY_CONFIG } from '../../../config/security.js';
+import DOMPurify from 'isomorphic-dompurify';
 
 async function validateCSRFToken(request) {
   const headersList = await headers();
@@ -16,22 +17,27 @@ async function validateCSRFToken(request) {
   }
   
   if (origin && SECURITY_CONFIG.trustedDomains.some(domain => origin.includes(domain))) {
-    return true;
+    const originUrl = new URL(origin);
+    if (SECURITY_CONFIG.trustedDomains.some(domain => originUrl.hostname === domain || originUrl.hostname.endsWith('.' + domain))) {
+     return true;
+   }
   }
   
   if (referer && SECURITY_CONFIG.trustedDomains.some(domain => referer.includes(domain))) {
-    return true;
+    const refererUrl = new URL(referer);
+    if (SECURITY_CONFIG.trustedDomains.some(domain => refererUrl.hostname === domain || refererUrl.hostname.endsWith('.' + domain))) {
+      return true;
+    }
   }
   
   return false;
 }
 
 function sanitizeInput(input) {
-  return input
-    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-    .replace(/javascript:/gi, '')
-    .replace(/on\w+\s*=/gi, '')
-    .trim();
+  return DOMPurify.sanitize(input, { 
+    ALLOWED_TAGS: [], 
+    ALLOWED_ATTR: [] 
+  }).trim();
 }
 
 function validateEmail(email) {
@@ -41,18 +47,7 @@ function validateEmail(email) {
 
 export async function POST(req) {
   if (!(await validateCSRFToken(req))) {
-    return NextResponse.json(
-      { error: 'CSRF protection', message: 'Invalid request origin' },
-      { status: 403 }
-    );
-  }
 
-  if (req.method !== 'POST') {
-    return NextResponse.json(
-      { error: 'Method not allowed' },
-      { status: 405 }
-    );
-  }
 
   let body;
   try {
@@ -120,12 +115,12 @@ export async function POST(req) {
 
   const formData = new FormData();
   formData.append('access_key', WEB3FORMS_API_KEY);
-  formData.append('name', sanitizedEmail);
+  formData.append('name', 'Contact Form');
   formData.append('email', sanitizedEmail);
   formData.append('subject', sanitizedSubject);
   formData.append('message', sanitizedMessage);
   
-  if (sanitizedCC) {
+
     formData.append('cc', sanitizedCC);
   }
   if (sanitizedBCC) {
