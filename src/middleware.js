@@ -4,11 +4,6 @@ import { SECURITY_CONFIG } from './config/security.js';
 
 const rateLimiter = new RateLimiter();
 
-setInterval(() => {
-  rateLimiter.cleanup();
-}, SECURITY_CONFIG.rateLimit.cleanupInterval);
-
-// Move cleanup to be triggered periodically during requests
 let lastCleanup = 0;
 
 function maybeCleanup() {
@@ -21,11 +16,18 @@ function maybeCleanup() {
 
 export async function middleware(request) {
   if (request.nextUrl.pathname === '/api/mailer') {
+    maybeCleanup();
     const clientIP = getClientIP(request);
-    const rateLimitInfo = await rateLimiter.isRateLimited(clientIP);
-    
-    if (rateLimitInfo.limited) {
-      return createRateLimitResponse(rateLimitInfo);
+    try {
+      const rateLimitInfo = await rateLimiter.isRateLimited(clientIP);
+      
+      if (rateLimitInfo.limited) {
+        return createRateLimitResponse(rateLimitInfo);
+      }
+    } catch (error) {
+      console.error('Rate limiter error:', error);
+      // Allow the request to proceed on error to avoid blocking legitimate users
+      return NextResponse.next();
     }
   }
   

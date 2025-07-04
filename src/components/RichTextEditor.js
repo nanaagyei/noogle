@@ -46,10 +46,8 @@ export default function RichTextEditor({ value, onChange, theme, placeholder }) 
   });
 
   useEffect(() => {
-    if (editor && value !== editor.getHTML()) {
-      if (editor && !isInternalUpdate && value !== editor.getHTML()) {
-        editor.commands.setContent(value);
-      }
+    if (editor && !isInternalUpdate && value !== editor.getHTML()) {
+      editor.commands.setContent(value);
     }
   }, [value, editor, isInternalUpdate]);
 
