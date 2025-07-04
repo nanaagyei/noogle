@@ -1,10 +1,71 @@
 import { NextResponse } from "next/server";
+import { headers } from 'next/headers';
+import { SECURITY_CONFIG } from '../../../config/security.js';
 
-// Export the POST method handler as a named export
+async function validateCSRFToken(request) {
+  const headersList = await headers();
+  const origin = headersList.get('origin');
+  const referer = headersList.get('referer');
+  
+  if (!origin && !referer) {
+    return false;
+  }
+  
+  if (origin && origin === process.env.NEXT_PUBLIC_SITE_URL) {
+    return true;
+  }
+  
+  if (origin && SECURITY_CONFIG.trustedDomains.some(domain => origin.includes(domain))) {
+    return true;
+  }
+  
+  if (referer && SECURITY_CONFIG.trustedDomains.some(domain => referer.includes(domain))) {
+    return true;
+  }
+  
+  return false;
+}
+
+function sanitizeInput(input) {
+  return input
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+    .replace(/javascript:/gi, '')
+    .replace(/on\w+\s*=/gi, '')
+    .trim();
+}
+
+function validateEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
 export async function POST(req) {
-  const { email, subject, message, cc, bcc } = await req.json();
+  if (!(await validateCSRFToken(req))) {
+    return NextResponse.json(
+      { error: 'CSRF protection', message: 'Invalid request origin' },
+      { status: 403 }
+    );
+  }
 
-  // Server-side only environment variables for Web3Forms
+  if (req.method !== 'POST') {
+    return NextResponse.json(
+      { error: 'Method not allowed' },
+      { status: 405 }
+    );
+  }
+
+  let body;
+  try {
+    body = await req.json();
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Invalid JSON payload' },
+      { status: 400 }
+    );
+  }
+
+  const { email, subject, message, cc, bcc } = body;
+
   const WEB3FORMS_API_URL = process.env.WEB3FORMS_API_URL;
   const WEB3FORMS_API_KEY = process.env.WEB3FORMS_API_KEY;
 
@@ -15,27 +76,65 @@ export async function POST(req) {
     );
   }
 
-  // Prepare form data for Web3Forms
+  if (!email || !subject || !message) {
+    return NextResponse.json(
+      { message: "Email, subject, and message are required" },
+      { status: 400 }
+    );
+  }
+
+  if (!validateEmail(email)) {
+    return NextResponse.json(
+      { message: "Invalid email format" },
+      { status: 400 }
+    );
+  }
+
+  const { maxEmailLength, maxSubjectLength, maxMessageLength } = SECURITY_CONFIG.validation;
+  if (email.length > maxEmailLength || subject.length > maxSubjectLength || message.length > maxMessageLength) {
+    return NextResponse.json(
+      { message: "Input fields exceed maximum length" },
+      { status: 400 }
+    );
+  }
+
+  const sanitizedEmail = sanitizeInput(email);
+  const sanitizedSubject = sanitizeInput(subject);
+  const sanitizedMessage = sanitizeInput(message);
+  const sanitizedCC = cc ? sanitizeInput(cc) : '';
+  const sanitizedBCC = bcc ? sanitizeInput(bcc) : '';
+
+  if (sanitizedCC && !validateEmail(sanitizedCC)) {
+    return NextResponse.json(
+      { message: "Invalid CC email format" },
+      { status: 400 }
+    );
+  }
+
+  if (sanitizedBCC && !validateEmail(sanitizedBCC)) {
+    return NextResponse.json(
+      { message: "Invalid BCC email format" },
+      { status: 400 }
+    );
+  }
+
   const formData = new FormData();
   formData.append('access_key', WEB3FORMS_API_KEY);
-  formData.append('name', email); // Using email as name field
-  formData.append('email', email);
-  formData.append('subject', subject);
-  formData.append('message', message);
+  formData.append('name', sanitizedEmail);
+  formData.append('email', sanitizedEmail);
+  formData.append('subject', sanitizedSubject);
+  formData.append('message', sanitizedMessage);
   
-  // Add CC and BCC if provided
-  if (cc) {
-    formData.append('cc', cc);
+  if (sanitizedCC) {
+    formData.append('cc', sanitizedCC);
   }
-  if (bcc) {
-    formData.append('bcc', bcc);
+  if (sanitizedBCC) {
+    formData.append('bcc', sanitizedBCC);
   }
 
-  // Honeypot spam protection
-  formData.append('botcheck', '');
+  formData.append('website', '');
 
   try {
-    // Send form data to Web3Forms
     const response = await fetch(WEB3FORMS_API_URL || 'https://api.web3forms.com/submit', {
       method: 'POST',
       body: formData,
@@ -44,16 +143,18 @@ export async function POST(req) {
     const result = await response.json();
 
     if (response.ok && result.success) {
-      // Email sent successfully
       return NextResponse.json(
         { status: "success", message: "Email sent successfully!", data: result },
-        { status: 200 }
+        { 
+          status: 200,
+          headers: SECURITY_CONFIG.securityHeaders
+        }
       );
     } else {
       throw new Error(result.message || 'Failed to send email');
     }
   } catch (error) {
-    console.error("Error occurred:", error.message);
+    console.error("Mailer API error:", error.message);
     return NextResponse.json(
       {
         status: "error",

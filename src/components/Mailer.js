@@ -2,6 +2,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useTheme } from "../contexts/ThemeContext";
+import RichTextEditor from "./RichTextEditor";
 
 export default function Mailer({ isExpand, setIsExpand, setIsOpen, isOpen }) {
   const { theme } = useTheme();
@@ -14,6 +15,7 @@ export default function Mailer({ isExpand, setIsExpand, setIsOpen, isOpen }) {
   const [bccOpen, setBCCOpen] = useState(false);
   const [resp, setResp] = useState();
   const [isMinimize, setMinimize] = useState(false);
+
   const handleContact = async (e) => {
     e.preventDefault();
 
@@ -26,7 +28,6 @@ export default function Mailer({ isExpand, setIsExpand, setIsOpen, isOpen }) {
         bcc,
       });
 
-      // Assuming the response status is in the form of a standard HTTP status code
       if (response.status === 200) {
         setResp("Email sent successfuly! I'll get to you in bit.");
         setTimeout(() => {
@@ -113,85 +114,154 @@ export default function Mailer({ isExpand, setIsExpand, setIsOpen, isOpen }) {
         onSubmit={handleContact}
       >
         <div className="flex flex-col gap-y-3 h-full w-full">
-          <div className="flex flex-col w-full border-b-[0.05rem] ">
-            <div className="flex flex-row justify-between w-full ">
+          <div className="flex flex-col w-full border-b-[0.05rem]">
+            <div className="flex flex-row justify-between w-full">
               <div className="flex flex-row gap-x-2 py-2 w-full">
-                <h2>From</h2>
+                <h2 style={{ color: theme.text.primary }}>From</h2>
                 <input
                   type={"email"}
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your Email"
-                  className="bg-transparent focus:outline-none text-[#736B90] placeholder-[#736B90] w-full"
+                  className="bg-transparent focus:outline-none w-full"
+                  style={{ 
+                    color: theme.text.primary,
+                    border: 'none',
+                    outline: 'none',
+                    boxShadow: 'none',
+                    backgroundColor: 'transparent',
+                    background: 'transparent',
+                    WebkitAppearance: 'none',
+                    MozAppearance: 'none',
+                    appearance: 'none'
+                  }}
                 />
               </div>
               <div className="flex flex-row gap-x-2 cursor-pointer py-2 justify-center">
                 {ccOpen || bccOpen || (
                   <>
-                    <div onClick={() => setCCOpen(!ccOpen)}>Cc</div>
-                    <div onClick={() => setBCCOpen(!bccOpen)}>Bcc</div>
+                    <div 
+                      onClick={() => setCCOpen(!ccOpen)}
+                      style={{ color: theme.text.primary }}
+                    >
+                      Cc
+                    </div>
+                    <div 
+                      onClick={() => setBCCOpen(!bccOpen)}
+                      style={{ color: theme.text.primary }}
+                    >
+                      Bcc
+                    </div>
                   </>
                 )}
               </div>
             </div>
             {ccOpen && (
-              <div className="flex flex-row justify-between w-full ">
+              <div className="flex flex-row justify-between w-full">
                 <div className="flex flex-row gap-x-2 py-2 w-full">
-                  <h2>Cc</h2>
+                  <h2 style={{ color: theme.text.primary }}>Cc</h2>
                   <input
                     type={"email"}
                     required
                     value={cc}
                     onChange={(e) => setCC(e.target.value)}
                     placeholder="Cc Email"
-                    className="bg-transparent focus:outline-none text-[#736B90] placeholder-[#736B90] w-full"
+                    className="bg-transparent focus:outline-none w-full"
+                    style={{ 
+                      color: theme.text.primary,
+                      border: 'none',
+                      outline: 'none',
+                      boxShadow: 'none',
+                      backgroundColor: 'transparent',
+                      background: 'transparent',
+                      WebkitAppearance: 'none',
+                      MozAppearance: 'none',
+                      appearance: 'none'
+                    }}
                   />
                 </div>
                 <div className="flex flex-row gap-x-2 cursor-pointer py-2 justify-center">
                   {!bccOpen && (
-                    <div onClick={() => setBCCOpen(!bccOpen)}>Bcc</div>
+                    <div 
+                      onClick={() => setBCCOpen(!bccOpen)}
+                      style={{ color: theme.text.primary }}
+                    >
+                      Bcc
+                    </div>
                   )}
                 </div>
               </div>
             )}
 
             {bccOpen && (
-              <div className="flex flex-row justify-between w-full ">
+              <div className="flex flex-row justify-between w-full">
                 <div className="flex flex-row gap-x-2 py-2 w-full">
-                  <h2>Bcc</h2>
+                  <h2 style={{ color: theme.text.primary }}>Bcc</h2>
                   <input
                     type={"email"}
                     required
                     value={bcc}
                     onChange={(e) => setBCC(e.target.value)}
                     placeholder="Bcc Email"
-                    className="bg-transparent focus:outline-none text-[#736B90] placeholder-[#736B90] w-full"
+                    className="bg-transparent focus:outline-none w-full"
+                    style={{ 
+                      color: theme.text.primary,
+                      border: 'none',
+                      outline: 'none',
+                      boxShadow: 'none',
+                      backgroundColor: 'transparent',
+                      background: 'transparent',
+                      WebkitAppearance: 'none',
+                      MozAppearance: 'none',
+                      appearance: 'none'
+                    }}
                   />
                 </div>
                 <div className="flex flex-row gap-x-2 cursor-pointer py-2 justify-center">
-                  {!ccOpen && <div onClick={() => setCCOpen(!ccOpen)}>Cc</div>}
+                  {!ccOpen && (
+                    <div 
+                      onClick={() => setCCOpen(!ccOpen)}
+                      style={{ color: theme.text.primary }}
+                    >
+                      Cc
+                    </div>
+                  )}
                 </div>
               </div>
             )}
           </div>
 
-          <div className="flex flex-row justify-between w-full  border-b-[0.05rem] pb-2 justify-center">
+          <div className="flex flex-row justify-between w-full border-b-[0.05rem] pb-2 justify-center">
             <input
               type={"text"}
               required
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
               placeholder="Subject"
-              className="bg-transparent focus:outline-none placeholder-[#736B90] w-full"
+              className="bg-transparent focus:outline-none w-full"
+              style={{ 
+                color: theme.text.primary,
+                border: 'none',
+                outline: 'none',
+                boxShadow: 'none',
+                backgroundColor: 'transparent',
+                background: 'transparent',
+                WebkitAppearance: 'none',
+                MozAppearance: 'none',
+                appearance: 'none'
+              }}
             />
           </div>
 
-          <textarea
-            className="w-full h-full bg-transparent focus:outline-none text-dark-purple-200 f"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
+          <div className="flex-1 flex flex-col">
+            <RichTextEditor
+              value={message}
+              onChange={setMessage}
+              theme={theme}
+              placeholder="Write your message..."
+            />
+          </div>
         </div>
         {resp == "There was an issue sending the email :(" && (
           <h2 className="text-red-700 p-2 w-full bg-red-100 my-2 rounded-md">
@@ -206,6 +276,75 @@ export default function Mailer({ isExpand, setIsExpand, setIsOpen, isOpen }) {
           Send
         </button>
       </form>
+
+      <style jsx global>{`
+        input[type="email"], input[type="text"] {
+          background: transparent !important;
+          background-color: transparent !important;
+          border: none !important;
+          outline: none !important;
+          box-shadow: none !important;
+          -webkit-appearance: none !important;
+          -moz-appearance: none !important;
+          appearance: none !important;
+          color: ${theme.text.primary} !important;
+        }
+        
+        input[type="email"]::placeholder, input[type="text"]::placeholder {
+          color: ${theme.text.secondary} !important;
+        }
+        
+        input[type="email"]:focus, input[type="text"]:focus {
+          background: transparent !important;
+          background-color: transparent !important;
+          border: none !important;
+          outline: none !important;
+          box-shadow: none !important;
+        }
+        
+        /* Chrome autofill styles */
+        input[type="email"]:-webkit-autofill,
+        input[type="email"]:-webkit-autofill:hover,
+        input[type="email"]:-webkit-autofill:focus,
+        input[type="email"]:-webkit-autofill:active,
+        input[type="text"]:-webkit-autofill,
+        input[type="text"]:-webkit-autofill:hover,
+        input[type="text"]:-webkit-autofill:focus,
+        input[type="text"]:-webkit-autofill:active {
+          -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+          -webkit-text-fill-color: ${theme.text.primary} !important;
+          background: transparent !important;
+          background-color: transparent !important;
+          border: none !important;
+          outline: none !important;
+          box-shadow: none !important;
+          transition: background-color 5000s ease-in-out 0s !important;
+        }
+        
+        /* Firefox autofill styles */
+        input[type="email"]:-moz-autofill,
+        input[type="text"]:-moz-autofill {
+          background: transparent !important;
+          background-color: transparent !important;
+          border: none !important;
+          outline: none !important;
+          box-shadow: none !important;
+        }
+        
+        /* Safari autofill styles */
+        input[type="email"]::-webkit-contacts-auto-fill-button,
+        input[type="text"]::-webkit-contacts-auto-fill-button {
+          display: none !important;
+        }
+        
+        /* Edge autofill styles */
+        input[type="email"]::-ms-clear,
+        input[type="email"]::-ms-reveal,
+        input[type="text"]::-ms-clear,
+        input[type="text"]::-ms-reveal {
+          display: none !important;
+        }
+      `}</style>
     </div>
   );
 }

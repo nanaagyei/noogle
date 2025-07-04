@@ -313,8 +313,8 @@ export default function SearchBar({ query }) {
           </div>
         </div>
 
-        {showSearch && (
-          <AnimatePresence>
+        <AnimatePresence>
+          {showSearch && (
             <motion.div
               className="w-full overflow-hidden"
               initial={{ height: 0, opacity: 0 }}
@@ -355,9 +355,72 @@ export default function SearchBar({ query }) {
                 </Link>
               ))}
             </motion.div>
-          </AnimatePresence>
-        )}
+          )}
+        </AnimatePresence>
       </div>
+
+      {/* Action Buttons - Only show on home page */}
+      {path === "/" && !showSearch && (
+        <motion.div 
+          className="flex flex-col sm:flex-row gap-4 mt-24"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+        >
+          {/* First Button - Resume */}
+          <motion.div
+            whileHover={{ 
+              scale: 1.05,
+              y: -2,
+              boxShadow: `0 8px 25px ${theme.shadow}`
+            }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Link
+              href="/resume.pdf"
+              target="_blank"
+              className="flex items-center justify-center px-8 py-3 rounded-full font-medium text-sm transition-all duration-200"
+              style={{
+                backgroundColor: theme.bg.accent,
+                color: theme.text.primary,
+                border: `1px solid ${theme.border.primary}`,
+                boxShadow: `0 2px 8px ${theme.shadow}`
+              }}
+            >
+              <span className="mr-2">📄</span>
+              "I'm Actually Qualified" 
+              <span className="ml-2 text-xs opacity-70">(Resume)</span>
+            </Link>
+          </motion.div>
+
+          {/* Second Button - Projects */}
+          <motion.div
+            whileHover={{ 
+              scale: 1.05,
+              y: -2,
+              boxShadow: `0 8px 25px ${theme.shadow}`
+            }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Link
+              href="/search?q=nana-projects"
+              className="flex items-center justify-center px-8 py-3 rounded-full font-medium text-sm transition-all duration-200"
+              style={{
+                backgroundColor: theme.bg.accent,
+                color: theme.text.primary,
+                border: `1px solid ${theme.border.primary}`,
+                boxShadow: `0 2px 8px ${theme.shadow}`
+              }}
+            >
+              <span className="mr-2">🚀</span>
+              "I Built This" 
+              <span className="ml-2 text-xs opacity-70">(Projects)</span>
+            </Link>
+          </motion.div>
+        </motion.div>
+      )}
     </div>
   );
 }
