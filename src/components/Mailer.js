@@ -16,6 +16,17 @@ export default function Mailer({ isExpand, setIsExpand, setIsOpen, isOpen }) {
   const [resp, setResp] = useState();
   const [isMinimize, setMinimize] = useState(false);
 
+  const inputStyle = {
+    color: theme.text.primary,
+    border: 'none',
+    outline: 'none',
+    boxShadow: 'none',
+    backgroundColor: 'transparent',
+    background: 'transparent',
+    WebkitAppearance: 'none',
+    MozAppearance: 'none',
+    appearance: 'none'
+  };
   const handleContact = async (e) => {
     e.preventDefault();
 
@@ -125,17 +136,7 @@ export default function Mailer({ isExpand, setIsExpand, setIsOpen, isOpen }) {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your Email"
                   className="bg-transparent focus:outline-none w-full"
-                  style={{ 
-                    color: theme.text.primary,
-                    border: 'none',
-                    outline: 'none',
-                    boxShadow: 'none',
-                    backgroundColor: 'transparent',
-                    background: 'transparent',
-                    WebkitAppearance: 'none',
-                    MozAppearance: 'none',
-                    appearance: 'none'
-                  }}
+                  style={inputStyle}
                 />
               </div>
               <div className="flex flex-row gap-x-2 cursor-pointer py-2 justify-center">
@@ -167,17 +168,7 @@ export default function Mailer({ isExpand, setIsExpand, setIsOpen, isOpen }) {
                     onChange={(e) => setCC(e.target.value)}
                     placeholder="Cc Email"
                     className="bg-transparent focus:outline-none w-full"
-                    style={{ 
-                      color: theme.text.primary,
-                      border: 'none',
-                      outline: 'none',
-                      boxShadow: 'none',
-                      backgroundColor: 'transparent',
-                      background: 'transparent',
-                      WebkitAppearance: 'none',
-                      MozAppearance: 'none',
-                      appearance: 'none'
-                    }}
+                    style={inputStyle}
                   />
                 </div>
                 <div className="flex flex-row gap-x-2 cursor-pointer py-2 justify-center">
@@ -203,17 +194,7 @@ export default function Mailer({ isExpand, setIsExpand, setIsOpen, isOpen }) {
                     onChange={(e) => setBCC(e.target.value)}
                     placeholder="Bcc Email"
                     className="bg-transparent focus:outline-none w-full"
-                    style={{ 
-                      color: theme.text.primary,
-                      border: 'none',
-                      outline: 'none',
-                      boxShadow: 'none',
-                      backgroundColor: 'transparent',
-                      background: 'transparent',
-                      WebkitAppearance: 'none',
-                      MozAppearance: 'none',
-                      appearance: 'none'
-                    }}
+                    style={inputStyle}
                   />
                 </div>
                 <div className="flex flex-row gap-x-2 cursor-pointer py-2 justify-center">
@@ -237,17 +218,7 @@ export default function Mailer({ isExpand, setIsExpand, setIsOpen, isOpen }) {
               onChange={(e) => setSubject(e.target.value)}
               placeholder="Subject"
               className="bg-transparent focus:outline-none w-full"
-              style={{ 
-                color: theme.text.primary,
-                border: 'none',
-                outline: 'none',
-                boxShadow: 'none',
-                backgroundColor: 'transparent',
-                background: 'transparent',
-                WebkitAppearance: 'none',
-                MozAppearance: 'none',
-                appearance: 'none'
-              }}
+              style={inputStyle}
             />
           </div>
 

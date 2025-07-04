@@ -19,8 +19,8 @@ async function validateCSRFToken(request) {
   if (origin && SECURITY_CONFIG.trustedDomains.some(domain => origin.includes(domain))) {
     const originUrl = new URL(origin);
     if (SECURITY_CONFIG.trustedDomains.some(domain => originUrl.hostname === domain || originUrl.hostname.endsWith('.' + domain))) {
-     return true;
-   }
+      return true;
+    }
   }
   
   if (referer && SECURITY_CONFIG.trustedDomains.some(domain => referer.includes(domain))) {
@@ -47,8 +47,11 @@ function validateEmail(email) {
 
 export async function POST(req) {
   if (!(await validateCSRFToken(req))) {
-
-
+    return NextResponse.json(
+      { error: 'CSRF protection', message: 'Invalid request origin' },
+      { status: 403 }
+    );
+  }
   let body;
   try {
     body = await req.json();
@@ -120,7 +123,7 @@ export async function POST(req) {
   formData.append('subject', sanitizedSubject);
   formData.append('message', sanitizedMessage);
   
-
+  if (sanitizedCC) {
     formData.append('cc', sanitizedCC);
   }
   if (sanitizedBCC) {
