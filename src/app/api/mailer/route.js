@@ -1,76 +1,57 @@
-import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
-import { NextResponse } from "next/server";  // Import NextResponse
+import { NextResponse } from "next/server";
 
 // Export the POST method handler as a named export
 export async function POST(req) {
   const { email, subject, message, cc, bcc } = await req.json();
 
-  // Server-side only environment variables (no NEXT_PUBLIC prefix for security)
-  const AWS_ACCESS_KEY = process.env.AWS_ACCESS_KEY_ID;
-  const AWS_ACCESS_KEY_SECRET = process.env.AWS_SECRET_ACCESS_KEY;
-  const AWS_REGION = process.env.AWS_REGION;
+  // Server-side only environment variables for Web3Forms
+  const WEB3FORMS_API_URL = process.env.WEB3FORMS_API_URL;
+  const WEB3FORMS_API_KEY = process.env.WEB3FORMS_API_KEY;
 
-
-  if (!AWS_ACCESS_KEY || !AWS_ACCESS_KEY_SECRET) {
+  if (!WEB3FORMS_API_KEY) {
     return NextResponse.json(
-      { message: "AWS credentials not configured" },
+      { message: "Web3Forms API key not configured" },
       { status: 500 }
     );
   }
 
-  let sesClient = null;
+  // Prepare form data for Web3Forms
+  const formData = new FormData();
+  formData.append('access_key', WEB3FORMS_API_KEY);
+  formData.append('name', email); // Using email as name field
+  formData.append('email', email);
+  formData.append('subject', subject);
+  formData.append('message', message);
+  
+  // Add CC and BCC if provided
+  if (cc) {
+    formData.append('cc', cc);
+  }
+  if (bcc) {
+    formData.append('bcc', bcc);
+  }
+
+  // Honeypot spam protection
+  formData.append('botcheck', '');
 
   try {
-    sesClient = new SESClient({
-      region: AWS_REGION, 
-      credentials: {
-        accessKeyId: AWS_ACCESS_KEY,
-        secretAccessKey: AWS_ACCESS_KEY_SECRET,
-      },
+    // Send form data to Web3Forms
+    const response = await fetch(WEB3FORMS_API_URL || 'https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: formData,
     });
-  } catch (error) {
-    return NextResponse.json(
-      { message: "Error connecting to SES", error: error.message },
-      { status: 500 }
-    );
-  }
 
-  // Prepare email params
-  const params = {
-    Source: "prince.agyei.tuffour@gmail.com", // Verified email address in AWS SES
-    Destination: {
-      ToAddresses: ["prince.agyei.tuffour@gmail.com"], // Replace with your dynamic recipient if needed
-    },
-    Message: {
-      Subject: {
-        Data: subject,
-        Charset: "UTF-8",
-      },
-      Body: {
-        Html: {
-          Data: `
-            <h3>New Contact Form Submission</h3>
-            <p><strong>From:</strong> ${email}</p>
-            ${cc ? `<p><strong>CC:</strong> ${cc}</p>` : ''}
-            ${bcc ? `<p><strong>BCC:</strong> ${bcc}</p>` : ''}
-            <p><strong>Subject:</strong> ${subject}</p>
-            <p><strong>Message:</strong></p>
-            <p>${message}</p>`,
-          Charset: "UTF-8",
-        },
-      },
-    },
-  };
+    const result = await response.json();
 
-  try {
-    // Send email using AWS SES
-    const command = new SendEmailCommand(params);
-    const data = await sesClient.send(command);
-    // Email sent successfully
-    return NextResponse.json(
-      { status: "success", message: "Email sent successfully!", data },
-      { status: 200 }
-    );
+    if (response.ok && result.success) {
+      // Email sent successfully
+      return NextResponse.json(
+        { status: "success", message: "Email sent successfully!", data: result },
+        { status: 200 }
+      );
+    } else {
+      throw new Error(result.message || 'Failed to send email');
+    }
   } catch (error) {
     console.error("Error occurred:", error.message);
     return NextResponse.json(
