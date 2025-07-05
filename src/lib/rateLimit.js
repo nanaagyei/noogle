@@ -27,7 +27,7 @@ export class RateLimiter {
       return {
         limited: true,
         remaining: 0,
-        resetTime: windowStart + this.window
+        resetTime: now + this.window
       };
     }
     
@@ -37,7 +37,7 @@ export class RateLimiter {
     return {
       limited: false,
       remaining: this.maxRequests - validRequests.length,
-      resetTime: windowStart + this.window
+      resetTime: now + this.window
     };
   }
 

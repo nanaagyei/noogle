@@ -1,10 +1,21 @@
 import { NextResponse } from "next/server";
 import { headers } from 'next/headers';
-import { SECURITY_CONFIG } from '../../../config/security.js';
+import { SECURITY_CONFIG, validateCSRFToken, cleanupExpiredTokens } from '../../../config/security.js';
 import DOMPurify from 'isomorphic-dompurify';
 
-async function validateCSRFToken(request) {
+async function validateCSRFRequest(request) {
   const headersList = await headers();
+  const csrfToken = headersList.get('x-csrf-token');
+  
+  // Clean up expired tokens
+  cleanupExpiredTokens();
+  
+  // Validate CSRF token
+  if (!validateCSRFToken(csrfToken)) {
+    return false;
+  }
+  
+  // Additional origin validation for extra security
   const origin = headersList.get('origin');
   const referer = headersList.get('referer');
   
@@ -16,24 +27,41 @@ async function validateCSRFToken(request) {
     return true;
   }
   
-  if (origin && SECURITY_CONFIG.trustedDomains.some(domain => origin.includes(domain))) {
-    const originUrl = new URL(origin);
-    if (SECURITY_CONFIG.trustedDomains.some(domain => originUrl.hostname === domain || originUrl.hostname.endsWith('.' + domain))) {
-      return true;
+  if (origin) {
+    try {
+      const originUrl = new URL(origin);
+      if (SECURITY_CONFIG.trustedDomains.some(domain => originUrl.hostname === domain || originUrl.hostname.endsWith('.' + domain))) {
+        return true;
+      }
+    } catch (e) {
+      return false;
     }
   }
   
-  if (referer && SECURITY_CONFIG.trustedDomains.some(domain => referer.includes(domain))) {
-    const refererUrl = new URL(referer);
-    if (SECURITY_CONFIG.trustedDomains.some(domain => refererUrl.hostname === domain || refererUrl.hostname.endsWith('.' + domain))) {
-      return true;
+  if (referer) {
+    try {
+      const refererUrl = new URL(referer);
+      if (SECURITY_CONFIG.trustedDomains.some(domain => refererUrl.hostname === domain || refererUrl.hostname.endsWith('.' + domain))) {
+        return true;
+      }
+    } catch (e) {
+      return false;
     }
   }
   
   return false;
 }
 
-function sanitizeInput(input) {
+function sanitizeInput(input, allowHtml = false) {
+  if (allowHtml) {
+    return DOMPurify.sanitize(input, { 
+      ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'u', 's', 'h1', 'h2', 'h3', 'ul', 'ol', 'li', 'blockquote', 'code', 'a'], 
+      ALLOWED_ATTR: ['href', 'style', 'src', 'alt'],
+      ALLOWED_STYLE_PROPS: ['text-align'],
+      ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|sms|cid|xmpp):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i
+    }).trim();
+  }
+  
   return DOMPurify.sanitize(input, { 
     ALLOWED_TAGS: [], 
     ALLOWED_ATTR: [] 
@@ -45,11 +73,12 @@ function validateEmail(email) {
   return emailRegex.test(email);
 }
 
+
 export async function POST(req) {
-  if (!(await validateCSRFToken(req))) {
+  if (!(await validateCSRFRequest(req))) {
     return NextResponse.json(
-      { error: 'CSRF protection', message: 'Invalid request origin' },
-      { status: 403 }
+      { error: 'CSRF protection', message: 'Invalid CSRF token or request origin' },
+      { status: 403, headers: SECURITY_CONFIG.securityHeaders }
     );
   }
   let body;
@@ -58,7 +87,7 @@ export async function POST(req) {
   } catch (error) {
     return NextResponse.json(
       { error: 'Invalid JSON payload' },
-      { status: 400 }
+      { status: 400, headers: SECURITY_CONFIG.securityHeaders }
     );
   }
 
@@ -70,21 +99,21 @@ export async function POST(req) {
   if (!WEB3FORMS_API_KEY) {
     return NextResponse.json(
       { message: "Web3Forms API key not configured" },
-      { status: 500 }
+      { status: 500, headers: SECURITY_CONFIG.securityHeaders }
     );
   }
 
   if (!email || !subject || !message) {
     return NextResponse.json(
       { message: "Email, subject, and message are required" },
-      { status: 400 }
+      { status: 400, headers: SECURITY_CONFIG.securityHeaders }
     );
   }
 
   if (!validateEmail(email)) {
     return NextResponse.json(
       { message: "Invalid email format" },
-      { status: 400 }
+      { status: 400, headers: SECURITY_CONFIG.securityHeaders }
     );
   }
 
@@ -92,29 +121,30 @@ export async function POST(req) {
   if (email.length > maxEmailLength || subject.length > maxSubjectLength || message.length > maxMessageLength) {
     return NextResponse.json(
       { message: "Input fields exceed maximum length" },
-      { status: 400 }
+      { status: 400, headers: SECURITY_CONFIG.securityHeaders }
     );
   }
 
   const sanitizedEmail = sanitizeInput(email);
   const sanitizedSubject = sanitizeInput(subject);
-  const sanitizedMessage = sanitizeInput(message);
-  const sanitizedCC = cc ? sanitizeInput(cc) : '';
-  const sanitizedBCC = bcc ? sanitizeInput(bcc) : '';
+  const sanitizedMessage = sanitizeInput(message, true);
 
-  if (sanitizedCC && !validateEmail(sanitizedCC)) {
+  if (cc && !validateEmail(cc)) {
     return NextResponse.json(
       { message: "Invalid CC email format" },
-      { status: 400 }
+      { status: 400, headers: SECURITY_CONFIG.securityHeaders }
     );
   }
 
-  if (sanitizedBCC && !validateEmail(sanitizedBCC)) {
+  if (bcc && !validateEmail(bcc)) {
     return NextResponse.json(
       { message: "Invalid BCC email format" },
-      { status: 400 }
+      { status: 400, headers: SECURITY_CONFIG.securityHeaders }
     );
   }
+
+  const sanitizedCC = cc ? sanitizeInput(cc) : '';
+  const sanitizedBCC = bcc ? sanitizeInput(bcc) : '';
 
   const formData = new FormData();
   formData.append('access_key', WEB3FORMS_API_KEY);
@@ -159,7 +189,7 @@ export async function POST(req) {
         message: "An error occurred while sending the email",
         error: error.message,
       },
-      { status: 500 }
+      { status: 500, headers: SECURITY_CONFIG.securityHeaders }
     );
   }
 }

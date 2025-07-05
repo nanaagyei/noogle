@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useTheme } from "../contexts/ThemeContext";
 import RichTextEditor from "./RichTextEditor";
@@ -15,6 +15,21 @@ export default function Mailer({ isExpand, setIsExpand, setIsOpen, isOpen }) {
   const [bccOpen, setBCCOpen] = useState(false);
   const [resp, setResp] = useState();
   const [isMinimize, setMinimize] = useState(false);
+  const [csrfToken, setCsrfToken] = useState("");
+
+  // Fetch CSRF token on component mount
+  useEffect(() => {
+    const fetchCSRFToken = async () => {
+      try {
+        const response = await axios.get("/api/csrf");
+        setCsrfToken(response.data.token);
+      } catch (error) {
+        console.error("Failed to fetch CSRF token:", error);
+      }
+    };
+    
+    fetchCSRFToken();
+  }, []);
 
   const inputStyle = {
     color: theme.text.primary,
@@ -30,6 +45,14 @@ export default function Mailer({ isExpand, setIsExpand, setIsOpen, isOpen }) {
   const handleContact = async (e) => {
     e.preventDefault();
 
+    if (!csrfToken) {
+      setResp("Security token not available. Please refresh the page.");
+      setTimeout(() => {
+        setResp("");
+      }, 3000);
+      return;
+    }
+
     try {
       const response = await axios.post("/api/mailer", {
         email,
@@ -37,6 +60,10 @@ export default function Mailer({ isExpand, setIsExpand, setIsOpen, isOpen }) {
         message,
         cc,
         bcc,
+      }, {
+        headers: {
+          'X-CSRF-Token': csrfToken
+        }
       });
 
       if (response.status === 200) {
@@ -48,11 +75,15 @@ export default function Mailer({ isExpand, setIsExpand, setIsOpen, isOpen }) {
       }
     } catch (error) {
       console.error(error);
-      setResp("There was an issue sending the email :(");
+      if (error.response?.status === 403) {
+        setResp("Security validation failed. Please refresh the page.");
+      } else {
+        setResp("There was an issue sending the email :(");
+      }
 
       setTimeout(() => {
         setResp("");
-      }, 2000);
+      }, 3000);
     }
   };
 

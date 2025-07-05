@@ -18,6 +18,10 @@ This document outlines the security measures implemented for the `/api/mailer` e
 - Proper HTTP 429 responses with retry headers
 - No external dependencies or paid services required
 
+### Security Improvements
+
+✅ **Fixed Vulnerability**: Rate limit reset time calculation has been corrected. Reset time is now calculated as `now + this.window` instead of `validRequests[0] + this.window`, ensuring accurate retry-after headers and proper rate limiting behavior.
+
 ### Headers Returned
 
 - `X-RateLimit-Limit`: Maximum requests allowed
@@ -29,9 +33,30 @@ This document outlines the security measures implemented for the `/api/mailer` e
 
 ### Implementation
 
-- Origin and Referer header validation
-- Trusted domain whitelist
-- Blocks requests without proper origin/referer headers
+- **Token-based CSRF protection** with cryptographically secure token generation
+- **Server-side token validation** with expiration handling
+- **Origin and Referer header validation** as additional security layer
+- **Automatic token cleanup** to prevent memory leaks
+- **Frontend integration** with automatic token fetching and header inclusion
+
+### Security Features
+
+✅ **Fixed Vulnerabilities**:
+
+1. **Strong Token Validation**: Cryptographically secure tokens generated using Node.js crypto module
+2. **Token Expiration**: 24-hour token expiry with automatic cleanup
+3. **Server-side Token Store**: In-memory token storage with proper validation
+4. **Frontend Integration**: Automatic token fetching and header inclusion
+5. **Additional Origin Validation**: Maintains origin/referer validation as extra security layer
+
+### Token Flow
+
+1. **Token Generation**: `/api/csrf` endpoint generates secure tokens
+2. **Token Storage**: Server stores tokens with 24-hour expiration
+3. **Frontend Fetching**: Mailer component automatically fetches token on mount
+4. **Request Validation**: All requests include `X-CSRF-Token` header
+5. **Server Validation**: Server validates token existence and expiration
+6. **Automatic Cleanup**: Expired tokens are automatically removed
 
 ### Trusted Domains
 
@@ -63,6 +88,28 @@ This document outlines the security measures implemented for the `/api/mailer` e
 - `X-Frame-Options: DENY`
 - `X-XSS-Protection: 1; mode=block`
 - `Referrer-Policy: strict-origin-when-cross-origin`
+
+### Security Improvements
+
+✅ **Fixed Vulnerability**: Security headers are now applied to ALL responses (200, 400, 403, 500) ensuring consistent security protection across all API responses.
+
+## API Endpoints
+
+### CSRF Token Endpoint
+
+- **URL**: `/api/csrf`
+- **Method**: GET
+- **Purpose**: Generate cryptographically secure CSRF tokens
+- **Response**: `{ token: "hex-string" }`
+- **Security**: Includes all security headers
+
+### Mailer Endpoint
+
+- **URL**: `/api/mailer`
+- **Method**: POST
+- **Headers Required**: `X-CSRF-Token`
+- **Purpose**: Send emails via Web3Forms
+- **Security**: Validates CSRF token and applies security headers
 
 ## Environment Variables
 
@@ -185,11 +232,20 @@ done
 ### CSRF Test
 
 ```bash
-# Test CSRF protection (should fail)
+# Test CSRF protection (should fail without token)
 curl -X POST http://localhost:3000/api/mailer \
   -H "Content-Type: application/json" \
   -H "Origin: https://malicious-site.com" \
   -d '{"email":"test@example.com","subject":"Test","message":"Test"}'
+
+# Test CSRF protection (should fail with invalid token)
+curl -X POST http://localhost:3000/api/mailer \
+  -H "Content-Type: application/json" \
+  -H "X-CSRF-Token: invalid-token" \
+  -d '{"email":"test@example.com","subject":"Test","message":"Test"}'
+
+# Test CSRF token generation
+curl -X GET http://localhost:3000/api/csrf
 ```
 
 ## Performance Notes

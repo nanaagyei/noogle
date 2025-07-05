@@ -11,7 +11,6 @@ import Color from '@tiptap/extension-color';
 
 export default function RichTextEditor({ value, onChange, theme, placeholder }) {
   const [isMounted, setIsMounted] = useState(false);
-  const [isInternalUpdate, setIsInternalUpdate] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
@@ -31,11 +30,10 @@ export default function RichTextEditor({ value, onChange, theme, placeholder }) 
     ],
     content: value,
     onUpdate: ({ editor }) => {
-      setIsInternalUpdate(true);
-      if (!isInternalUpdate) {
-        onChange(editor.getHTML());
+      const html = editor.getHTML();
+      if (html !== value) {
+        onChange(html);
       }
-      setTimeout(() => setIsInternalUpdate(false), 0);
     },
     editorProps: {
       attributes: {
@@ -46,10 +44,10 @@ export default function RichTextEditor({ value, onChange, theme, placeholder }) 
   });
 
   useEffect(() => {
-    if (editor && !isInternalUpdate && value !== editor.getHTML()) {
+    if (editor && value !== editor.getHTML()) {
       editor.commands.setContent(value);
     }
-  }, [value, editor, isInternalUpdate]);
+  }, [value, editor]);
 
   if (!isMounted) {
     return (
