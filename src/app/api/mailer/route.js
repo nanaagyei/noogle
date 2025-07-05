@@ -30,7 +30,11 @@ async function validateCSRFRequest(request) {
   if (origin) {
     try {
       const originUrl = new URL(origin);
-      if (SECURITY_CONFIG.trustedDomains.some(domain => originUrl.hostname === domain || originUrl.hostname.endsWith('.' + domain))) {
+      if (SECURITY_CONFIG.trustedDomains.some(domain => {
+        return originUrl.hostname === domain || 
+               (domain.startsWith('.') && originUrl.hostname.endsWith(domain)) ||
+               (!domain.startsWith('.') && originUrl.hostname === domain || originUrl.hostname.endsWith('.' + domain));
+      })) {
         return true;
       }
     } catch (e) {
@@ -41,7 +45,11 @@ async function validateCSRFRequest(request) {
   if (referer) {
     try {
       const refererUrl = new URL(referer);
-      if (SECURITY_CONFIG.trustedDomains.some(domain => refererUrl.hostname === domain || refererUrl.hostname.endsWith('.' + domain))) {
+      if (SECURITY_CONFIG.trustedDomains.some(domain => {
+        return refererUrl.hostname === domain || 
+               (domain.startsWith('.') && refererUrl.hostname.endsWith(domain)) ||
+               (!domain.startsWith('.') && refererUrl.hostname === domain || refererUrl.hostname.endsWith('.' + domain));
+      })) {
         return true;
       }
     } catch (e) {

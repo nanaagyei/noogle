@@ -67,7 +67,7 @@ export default function Mailer({ isExpand, setIsExpand, setIsOpen, isOpen }) {
       });
 
       if (response.status === 200) {
-        setResp("Email sent successfuly! I'll get to you in bit.");
+        setResp("Email sent successfully! I'll get to you in bit.");
         setTimeout(() => {
           setIsOpen(false);
           setResp("");
