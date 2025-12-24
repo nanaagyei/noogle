@@ -389,7 +389,7 @@ export default function SearchBar({ query }) {
               }}
             >
               <span className="mr-2">📄</span>
-              "I'm Actually Qualified" 
+              &quot;I&apos;m Actually Qualified&quot; 
               <span className="ml-2 text-xs opacity-70">(Resume)</span>
             </Link>
           </motion.div>
@@ -415,7 +415,7 @@ export default function SearchBar({ query }) {
               }}
             >
               <span className="mr-2">🚀</span>
-              "I Built This" 
+              &quot;I Built This&quot; 
               <span className="ml-2 text-xs opacity-70">(Projects)</span>
             </Link>
           </motion.div>
