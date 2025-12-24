@@ -12,12 +12,12 @@ export default function About() {
       >
         <h2 style={{ color: theme.text.muted }}>PRINCE AGYEI TUFFOUR</h2>
         <h2>
-          I'm a mathematician, a software engineer, a QA engineer, and potential ML engineer who loves building
+          I&apos;m a mathematician, a software engineer, a QA engineer, and potential ML engineer who loves building
           things, learning new things, and solving problems.
         </h2>
 
         <h2>
-          I'm advanced in{" "}
+          I&apos;m advanced in{" "}
           <span className="italic" style={{ color: theme.text.accent }}>
             Python, JS/TS, PyTorch, TensorFlow, LLM, and React with a lot of experience in full-stack development,
             machine learning and deep learning
@@ -26,7 +26,7 @@ export default function About() {
         </h2>
 
         <h2>
-          Currently, I'm working as a Software QA Engineer at{" "}
+          Currently, I&apos;m working as a Software QA Engineer at{" "}
           <span 
             className="hover:opacity-70 transform transition-all duration-300"
             style={{ color: theme.text.accent }}
@@ -39,8 +39,8 @@ export default function About() {
           As a Software QA Engineer, I ensure the quality and reliability of their flagship product, connectMLS™, 
           through comprehensive testing, test automation, and quality assurance processes. 
           I work closely with development teams to maintain high standards of software quality while 
-          contributing to the continuous improvement of our testing methodologies and frameworks. I have a tradition of building at
-          least one large-scale project every year, this year I'm creating{" "}
+          contributing to the continuous improvement of our testing methodologies and frameworks.           I have a tradition of building at
+          least one large-scale project every year, this year I&apos;m creating{" "}
           <span>
             <Link
               className="inline-flex items-center hover:underline hover:opacity-70 transform transition-all duration-300 gap-x-1"

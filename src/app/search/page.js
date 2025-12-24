@@ -371,7 +371,7 @@ export default function Search() {
                 >
 
                   <h2>
-                    With a strong foundation in mathematics and programming, I've dedicated
+                    With a strong foundation in mathematics and programming, I&apos;ve dedicated
                     my career to leveraging technical expertise in software engineering,
                     machine learning and deep learning to solve complex problems. My unique
                     combination of mathematical thinking, engineering skills, and hands-on
@@ -380,16 +380,16 @@ export default function Search() {
                   </h2>
 
                   <h2>
-                    Throughout my career, I've consistently demonstrated a knack for
+                    Throughout my career, I&apos;ve consistently demonstrated a knack for
                     transforming challenges into opportunities for innovation. At
                     dynaConnections, I revolutionized the QA process by implementing
                     an automated testing framework that reduced testing time by 70%
                     while increasing coverage by 40%. I also spearheaded the
                     development of GradGPT.pro, an innovative AI-powered platform
-                    that's reshaping how students approach academic writing. My
+                    that&apos;s reshaping how students approach academic writing. My
                     expertise in Python, JS/TS, and deep learning frameworks like
                     PyTorch and TensorFlow has enabled me to build sophisticated
-                    solutions that push the boundaries of what's technically
+                    solutions that push the boundaries of what&apos;s technically
                     possible while delivering real business value.
                   </h2>
 
@@ -537,8 +537,8 @@ export default function Search() {
                     I love building impact-driven, full-stack projects, and AI Models.{" "}
                   </h2>
                   <h2 className="opacity-70 text-lg">
-                    Currently, I'm studying to specialize my technical skills
-                    in Machine Learning and Deep Learning. I'm also preparing for the AWS Machine Learning Engineer Associate Certification.
+                    Currently, I&apos;m studying to specialize my technical skills
+                    in Machine Learning and Deep Learning. I&apos;m also preparing for the AWS Machine Learning Engineer Associate Certification.
                   </h2>
 
                   <div className="flex flex-col">
@@ -575,7 +575,7 @@ export default function Search() {
                 </div>
               )) || (displayQuery == "blog" && (
                 <div className="flex flex-col gap-y-3 p-2">
-                  <h2 className="text-xl">"Sharing knowledge is my passion"</h2>
+                  <h2 className="text-xl">&quot;Sharing knowledge is my passion&quot;</h2>
                   <h2 className="opacity-70 text-lg">
                     Welcome to my personal blog where I share insights, experiences, and lessons learned from my journey in tech, entrepreneurship, and life.
                   </h2>
@@ -588,7 +588,7 @@ export default function Search() {
                 </div>
               )) || (
                 <div className="flex flex-col gap-y-3 p-2">
-                  <h2 className="text-xl">"Lead a life worth telling"</h2>
+                  <h2 className="text-xl">&quot;Lead a life worth telling&quot;</h2>
                   <h2 className="opacity-70 text-lg">
                     This is one of my favourite quotes of all times as it
                     continually motivates me to seek out unqiue, spontaneous
@@ -600,11 +600,11 @@ export default function Search() {
                   </h2>
 
                   <h2 className="opacity-70 text-lg">
-                    I'm learning to enjoy every moment of my life.
+                    I&apos;m learning to enjoy every moment of my life.
                   </h2>
 
                   <h2 className="opacity-70 text-sm">
-                    (turns out it's more fun that way)
+                    (turns out it&apos;s more fun that way)
                   </h2>
                 </div>
               )}
@@ -624,7 +624,7 @@ export default function Search() {
           <h2 className="text-sm">Suggestions:</h2>
           <ul className="list-disc pl-5 text-sm">
             <li>
-              Don't search something preposterous (everyone needs a nana!)
+              Don&apos;t search something preposterous (everyone needs a nana!)
             </li>
             <li>Contact Nana to learn more</li>
           </ul>
