@@ -259,7 +259,7 @@ export default function RichTextEditor({ value, onChange, theme, placeholder }) 
           style={{ color: editor.isActive('blockquote') ? '#ffffff' : theme.text.primary }}
           title="Blockquote"
         >
-          "
+          &quot;
         </button>
 
         {/* Code */}

@@ -15,6 +15,7 @@ export default function SearchBar({ query }) {
     { search: "experiences", param: "experience" },
     { search: "life", param: "life" },
     { search: "why hire nana", param: "why-hire-nana" },
+    { search: "my personal blog", param: "blog" },
     { search: "view my resume", href: "/resume.pdf", isDirectLink: true },
   ];
   const path = usePathname();
@@ -389,7 +390,7 @@ export default function SearchBar({ query }) {
               }}
             >
               <span className="mr-2">📄</span>
-              "I'm Actually Qualified" 
+              &quot;I&apos;m Actually Qualified&quot; 
               <span className="ml-2 text-xs opacity-70">(Resume)</span>
             </Link>
           </motion.div>
@@ -415,7 +416,7 @@ export default function SearchBar({ query }) {
               }}
             >
               <span className="mr-2">🚀</span>
-              "I Built This" 
+              &quot;I Built This&quot; 
               <span className="ml-2 text-xs opacity-70">(Projects)</span>
             </Link>
           </motion.div>

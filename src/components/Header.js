@@ -53,7 +53,7 @@ export default function Header({ setShowMailer }) {
     {
       text: "articles",
       icon: "articles.svg",
-      url: "https://medium.com/@tuffourp",
+      url: "/search?q=blog",
     },
   ];
 
@@ -289,7 +289,7 @@ export default function Header({ setShowMailer }) {
                     style={{ backgroundImage: "url(head-shot.png)" }}
                     className="rounded-full bg-no-repeat bg-cover w-24 h-24 cursor-pointer"
                   />
-                  <h2 className="text-xl" style={{ color: theme.text.primary }}>Hi, I'm Prince (Nana)</h2>
+                  <h2 className="text-xl" style={{ color: theme.text.primary }}>Hi, I&apos;m Prince (Nana)</h2>
                 </div>
                 <div className="flex flex-col font-ropaSans-light text-md gap-y-5">
                   <h2 className="text-center" style={{ color: theme.text.secondary }}>
