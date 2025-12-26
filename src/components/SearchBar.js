@@ -81,7 +81,7 @@ export default function SearchBar({ query }) {
     "#6B7280", // ( - Medium grey
     "#7C3AED", // N - Rich purple
     "#6B7280", // ) - Medium grey
-    "", // o - Very dark slate
+    "#1F2937", // o - Very dark slate
     "#8B5CF6", // o - Purple
     "#3B82F6", // g - Blue
     "#6B7280", // l - Medium grey
@@ -289,16 +289,16 @@ export default function SearchBar({ query }) {
           <div className="flex flex-row justify-center items-center gap-x-2">
             <div
               className="bg-no-repeat w-5 h-5 bg-cover cursor-pointer"
-              onMouseEnter={() => setTooltip2(!tooltip2)}
-              onMouseLeave={() => setTooltip2(!tooltip2)}
+              onMouseEnter={() => setTooltip2(true)}
+              onMouseLeave={() => setTooltip2(false)}
               style={{ backgroundImage: "url(icons/microphone.svg)" }}
             />
             <Link
               className="bg-no-repeat w-5 h-5 bg-cover"
               href={"https://calendly.com/tuffourp/zoom-meeting"}
               target="_blank"
-              onMouseEnter={() => setTooltip(!tooltip)}
-              onMouseLeave={() => setTooltip(!tooltip)}
+              onMouseEnter={() => setTooltip(true)}
+              onMouseLeave={() => setTooltip(false)}
               style={{ backgroundImage: "url(icons/calendar.svg)" }}
             />
             <div
