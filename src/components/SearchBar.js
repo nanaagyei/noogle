@@ -389,12 +389,14 @@ export default function SearchBar({ query }) {
         </AnimatePresence>
       </div>
 
-      {/* Action Buttons - Only show on home page when dropdown is closed */}
-      {path === "/" && !showSearch && (
+      {/* Action Buttons - Only show on home page, hide visually when dropdown is open */}
+      {path === "/" && (
         <motion.div 
-          className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-8 md:mt-10 lg:mt-12 xl:mt-14"
+          className={`flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-8 md:mt-10 lg:mt-12 xl:mt-14 transition-opacity duration-200 ${
+            showSearch ? 'opacity-0 pointer-events-none' : 'opacity-100'
+          }`}
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={{ opacity: showSearch ? 0 : 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
         >
           {/* First Button - Resume */}
