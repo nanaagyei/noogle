@@ -33,27 +33,31 @@ export default function Header({ setShowMailer }) {
     }
   };
 
-  const externalLinks = [
-    { text: "code :3", icon: "github.svg", url: "https://github.com/nanaagyei" },
+  const navLinks = [
+    { text: "code :3", icon: "github.svg", url: "https://github.com/nanaagyei", isExternal: true },
     {
       text: "stalk",
       icon: "x.svg",
       url: "https://x.com/tkay_jnr",
+      isExternal: true,
     },
     {
       text: "connect",
       icon: "linkedin.svg",
       url: "https://www.linkedin.com/in/prince-agyei-tuffour/",
+      isExternal: true,
     },
     {
-      text: "designs",
-      icon: "figma.svg",
-      url: "https://www.figma.com/proto/pTxckVdMWIXy0af6hIZlGJ/Wintima?node-id=5-16&scaling=scale-down-width&page-id=0:1&starting-point-node-id=5:16&hotspot-hints=0&hide-ui=1",
+      text: "substacks",
+      icon: "substack.svg",
+      url: "https://tkayjnr.substack.com",
+      isExternal: true,
     },
     {
-      text: "articles",
+      text: "my blog",
       icon: "articles.svg",
       url: "/search?q=blog",
+      isExternal: false,
     },
   ];
 
@@ -214,11 +218,11 @@ export default function Header({ setShowMailer }) {
             } rounded-[1.5rem] p-6 gap-6`}
           >
             {linkMenu &&
-              externalLinks.map((link, idx) => (
+              navLinks.map((link, idx) => (
                 <Link
                   key={idx}
                   href={link.url}
-                  target="_blank"
+                  {...(link.isExternal && { target: "_blank", rel: "noopener noreferrer" })}
                   className="flex flex-col items-center px-4 py-2 rounded-lg transform transition ease-out duration-200"
                   style={{ color: theme.text.secondary }}
                   onMouseEnter={(e) => {

@@ -81,7 +81,7 @@ export default function SearchBar({ query }) {
     "#6B7280", // ( - Medium grey
     "#7C3AED", // N - Rich purple
     "#6B7280", // ) - Medium grey
-    "", // o - Very dark slate
+    "#1F2937", // o - Very dark slate
     "#8B5CF6", // o - Purple
     "#3B82F6", // g - Blue
     "#6B7280", // l - Medium grey
@@ -138,7 +138,7 @@ export default function SearchBar({ query }) {
     >
       {path === "/" && (
         <motion.div 
-          className="absolute -top-24 lg:-top-32 xl:-top-36 flex items-center justify-center"
+          className="absolute -top-32 sm:-top-36 md:-top-40 lg:-top-44 xl:-top-48 flex items-center justify-center"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
@@ -154,55 +154,75 @@ export default function SearchBar({ query }) {
           />
           
           {/* Main letters container */}
-          <div className="relative text-7xl lg:text-8xl xl:text-9xl flex items-center justify-center">
-            {letters.map((letter, index) => (
-              <motion.span
-                key={index}
-                custom={index}
-                initial="hidden"
-                animate={["visible", "floating"]}
-                whileHover="hover"
-                variants={letterVariants}
-                className="inline-block cursor-pointer select-none relative"
-                style={{
-                  color: letterColors[index],
-                  textShadow: `0 0 20px ${letterColors[index]}40`
-                }}
-              >
-                {/* Letter background glow that appears on hover */}
-                <motion.div
-                  className="absolute inset-0 rounded-lg -z-10"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileHover={{ 
-                    opacity: 0.4,
-                    scale: 1.6,
-                    background: `radial-gradient(circle, ${letterColors[index]}30 0%, transparent 70%)`
-                  }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
-                />
-                
-                {/* Enhanced hover color and glow */}
+          <div className="relative flex flex-col items-center justify-center">
+            <div className="text-7xl lg:text-8xl xl:text-9xl flex items-center justify-center">
+              {letters.map((letter, index) => (
                 <motion.span
-                  key={`${letter}-${index}-${isDark}`} // Force re-render on theme change
-                  className="relative z-10"
-                  animate={{ 
+                  key={index}
+                  custom={index}
+                  initial="hidden"
+                  animate={["visible", "floating"]}
+                  whileHover="hover"
+                  variants={{
+                    ...letterVariants,
+                    hover: {
+                      scale: 1.2,
+                      rotate: 5,
+                      y: -12,
+                      color: hoverColors[index],
+                      textShadow: `0 0 40px ${hoverColors[index]}80, 0 0 60px ${hoverColors[index]}60`,
+                      transition: {
+                        duration: 0.3,
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 10
+                      }
+                    }
+                  }}
+                  className="inline-block cursor-pointer select-none relative"
+                  style={{
                     color: letterColors[index],
                     textShadow: `0 0 20px ${letterColors[index]}40`
                   }}
-                  whileHover={{ 
-                    color: hoverColors[index],
-                    textShadow: [
-                      `0 0 20px ${letterColors[index]}40`,
-                      `0 0 40px ${hoverColors[index]}80`,
-                      `0 0 60px ${hoverColors[index]}60`
-                    ]
-                  }}
-                  transition={{ duration: 0.3 }}
                 >
-                  {letter}
+                  {/* Letter background glow that appears on hover */}
+                  <motion.div
+                    className="absolute inset-0 rounded-lg -z-10 pointer-events-none"
+                    initial="hidden"
+                    variants={{
+                      hidden: { opacity: 0, scale: 0.8 },
+                      visible: { opacity: 0, scale: 0.8 },
+                      floating: { opacity: 0, scale: 0.8 },
+                      hover: {
+                        opacity: 0.4,
+                        scale: 1.6,
+                        background: `radial-gradient(circle, ${letterColors[index]}30 0%, transparent 70%)`
+                      }
+                    }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                  />
+                  
+                  {/* Letter content */}
+                  <span
+                    key={`${letter}-${index}-${isDark}`}
+                    className="relative z-10"
+                  >
+                    {letter}
+                  </span>
                 </motion.span>
-              </motion.span>
-            ))}
+              ))}
+            </div>
+            
+            {/* Tagline */}
+            <motion.p
+              className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl mt-3 sm:mt-4 md:mt-5 lg:mt-6 font-ropaSans whitespace-nowrap"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.2, ease: "easeOut" }}
+              style={{ color: theme.text.muted }}
+            >
+              Search anything about me
+            </motion.p>
           </div>
           
           {/* Floating particles effect */}
@@ -239,18 +259,21 @@ export default function SearchBar({ query }) {
 
       <div
         ref={dropdownRef} // Attach ref to the dropdown container
-        className={`flex flex-col items-center shadow-lg ${
+        className={`relative flex flex-col items-center ${
           (path !== "/" && "md:absolute w-full top-6 left-48 md:w-2/5 ") ||
           "absolute w-11/12 md:w-2/3 lg:w-2/5"
-        } ${showSearch ? "rounded-3xl" : "rounded-full"} py-2`}
-        style={{ 
-          backgroundColor: theme.bg.accent,
-          boxShadow: `0 10px 15px -3px ${theme.shadow}, 0 4px 6px -2px ${theme.shadow}`
-        }}
+        }`}
       >
-        <div className="flex items-center w-full px-4">
+        {/* Search input bar - always visible */}
+        <div 
+          className={`w-full flex items-center px-4 py-2 shadow-lg ${showSearch ? "rounded-t-3xl" : "rounded-full"}`}
+          style={{ 
+            backgroundColor: theme.bg.accent,
+            boxShadow: `0 10px 15px -3px ${theme.shadow}, 0 4px 6px -2px ${theme.shadow}`
+          }}
+        >
           <div
-            className="bg-no-repeat w-5 h-5 bg-cover"
+            className="bg-no-repeat w-5 h-5 bg-cover cursor-pointer"
             style={{
               backgroundImage: showSearch
                 ? "url(icons/arrow.svg)"
@@ -273,16 +296,16 @@ export default function SearchBar({ query }) {
           <div className="flex flex-row justify-center items-center gap-x-2">
             <div
               className="bg-no-repeat w-5 h-5 bg-cover cursor-pointer"
-              onMouseEnter={() => setTooltip2(!tooltip2)}
-              onMouseLeave={() => setTooltip2(!tooltip2)}
+              onMouseEnter={() => setTooltip2(true)}
+              onMouseLeave={() => setTooltip2(false)}
               style={{ backgroundImage: "url(icons/microphone.svg)" }}
             />
             <Link
               className="bg-no-repeat w-5 h-5 bg-cover"
               href={"https://calendly.com/tuffourp/zoom-meeting"}
               target="_blank"
-              onMouseEnter={() => setTooltip(!tooltip)}
-              onMouseLeave={() => setTooltip(!tooltip)}
+              onMouseEnter={() => setTooltip(true)}
+              onMouseLeave={() => setTooltip(false)}
               style={{ backgroundImage: "url(icons/calendar.svg)" }}
             />
             <div
@@ -314,10 +337,16 @@ export default function SearchBar({ query }) {
           </div>
         </div>
 
+        {/* Dropdown - absolutely positioned to overlay content */}
         <AnimatePresence>
           {showSearch && (
             <motion.div
-              className="w-full overflow-hidden"
+              className="absolute top-full left-0 right-0 w-full overflow-hidden rounded-b-3xl shadow-lg"
+              style={{ 
+                backgroundColor: theme.bg.accent,
+                boxShadow: `0 10px 15px -3px ${theme.shadow}, 0 4px 6px -2px ${theme.shadow}`,
+                zIndex: 100
+              }}
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
@@ -360,12 +389,14 @@ export default function SearchBar({ query }) {
         </AnimatePresence>
       </div>
 
-      {/* Action Buttons - Only show on home page */}
-      {path === "/" && !showSearch && (
+      {/* Action Buttons - Only show on home page, hide visually when dropdown is open */}
+      {path === "/" && (
         <motion.div 
-          className="flex flex-col sm:flex-row gap-4 mt-24"
+          className={`flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-8 md:mt-10 lg:mt-12 xl:mt-14 transition-opacity duration-200 ${
+            showSearch ? 'opacity-0 pointer-events-none' : 'opacity-100'
+          }`}
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={{ opacity: showSearch ? 0 : 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
         >
           {/* First Button - Resume */}
@@ -381,7 +412,7 @@ export default function SearchBar({ query }) {
             <Link
               href="/resume.pdf"
               target="_blank"
-              className="flex items-center justify-center px-8 py-3 rounded-full font-medium text-sm transition-all duration-200"
+              className="flex items-center justify-center px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-medium text-xs sm:text-sm transition-all duration-200"
               style={{
                 backgroundColor: theme.bg.accent,
                 color: theme.text.primary,
@@ -390,7 +421,7 @@ export default function SearchBar({ query }) {
               }}
             >
               <span className="mr-2">📄</span>
-              &quot;I&apos;m Actually Qualified&quot; 
+              &quot;I&apos;m Actually Qualified&quot;
               <span className="ml-2 text-xs opacity-70">(Resume)</span>
             </Link>
           </motion.div>
@@ -407,7 +438,7 @@ export default function SearchBar({ query }) {
           >
             <Link
               href="/search?q=nana-projects"
-              className="flex items-center justify-center px-8 py-3 rounded-full font-medium text-sm transition-all duration-200"
+              className="flex items-center justify-center px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-medium text-xs sm:text-sm transition-all duration-200"
               style={{
                 backgroundColor: theme.bg.accent,
                 color: theme.text.primary,
@@ -416,7 +447,7 @@ export default function SearchBar({ query }) {
               }}
             >
               <span className="mr-2">🚀</span>
-              &quot;I Built This&quot; 
+              &quot;I Built This&quot;
               <span className="ml-2 text-xs opacity-70">(Projects)</span>
             </Link>
           </motion.div>
