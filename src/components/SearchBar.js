@@ -162,20 +162,23 @@ export default function SearchBar({ query }) {
                   custom={index}
                   initial="hidden"
                   animate={["visible", "floating"]}
-                  whileHover={{
-                    scale: 1.2,
-                    rotate: 5,
-                    y: -12,
-                    color: hoverColors[index],
-                    textShadow: `0 0 40px ${hoverColors[index]}80, 0 0 60px ${hoverColors[index]}60`,
-                    transition: {
-                      duration: 0.3,
-                      type: "spring",
-                      stiffness: 400,
-                      damping: 10
+                  whileHover="hover"
+                  variants={{
+                    ...letterVariants,
+                    hover: {
+                      scale: 1.2,
+                      rotate: 5,
+                      y: -12,
+                      color: hoverColors[index],
+                      textShadow: `0 0 40px ${hoverColors[index]}80, 0 0 60px ${hoverColors[index]}60`,
+                      transition: {
+                        duration: 0.3,
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 10
+                      }
                     }
                   }}
-                  variants={letterVariants}
                   className="inline-block cursor-pointer select-none relative"
                   style={{
                     color: letterColors[index],
@@ -186,6 +189,13 @@ export default function SearchBar({ query }) {
                   <motion.div
                     className="absolute inset-0 rounded-lg -z-10 pointer-events-none"
                     initial={{ opacity: 0, scale: 0.8 }}
+                    variants={{
+                      hover: {
+                        opacity: 0.4,
+                        scale: 1.6,
+                        background: `radial-gradient(circle, ${letterColors[index]}30 0%, transparent 70%)`
+                      }
+                    }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
                   />
                   

@@ -18,7 +18,7 @@ export default function Footer() {
       }}
     >
       <div className="flex items-center px-4">
-        <div className="cursor-pointer" onMouseEnter={() => setTooltip(!tooltip)} onMouseLeave={() => setTooltip(!setTooltip)} >Austin, TX</div>
+        <div className="cursor-pointer" onMouseEnter={() => setTooltip(true)} onMouseLeave={() => setTooltip(false)} >Austin, TX</div>
       </div>
 
       <div 
