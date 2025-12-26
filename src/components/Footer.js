@@ -40,11 +40,13 @@ export default function Footer() {
       <div className="flex flex-row w-full justify-between px-4">
         <div className="flex flex-row gap-x-6">
           <Link
-            href="https://nkagyei.substack.com/"
+            href="https://tkayjnr.substack.com"
+            target="_blank"
+            rel="noopener noreferrer"
             className="hover:opacity-70 transform transition-all duration-300"
             style={{ color: theme.text.secondary }}
           >
-            Newsletter
+            substacks
           </Link>
 
           <div className="cursor-pointer">{currentYear} © Prince Agyei-Tuffour</div>

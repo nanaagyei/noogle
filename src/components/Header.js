@@ -46,12 +46,12 @@ export default function Header({ setShowMailer }) {
       url: "https://www.linkedin.com/in/prince-agyei-tuffour/",
     },
     {
-      text: "designs",
-      icon: "figma.svg",
-      url: "https://www.figma.com/proto/pTxckVdMWIXy0af6hIZlGJ/Wintima?node-id=5-16&scaling=scale-down-width&page-id=0:1&starting-point-node-id=5:16&hotspot-hints=0&hide-ui=1",
+      text: "substacks",
+      icon: "substack.svg",
+      url: "https://tkayjnr.substack.com",
     },
     {
-      text: "articles",
+      text: "my blog",
       icon: "articles.svg",
       url: "/search?q=blog",
     },
