@@ -162,7 +162,19 @@ export default function SearchBar({ query }) {
                   custom={index}
                   initial="hidden"
                   animate={["visible", "floating"]}
-                  whileHover="hover"
+                  whileHover={{
+                    scale: 1.2,
+                    rotate: 5,
+                    y: -12,
+                    color: hoverColors[index],
+                    textShadow: `0 0 40px ${hoverColors[index]}80, 0 0 60px ${hoverColors[index]}60`,
+                    transition: {
+                      duration: 0.3,
+                      type: "spring",
+                      stiffness: 400,
+                      damping: 10
+                    }
+                  }}
                   variants={letterVariants}
                   className="inline-block cursor-pointer select-none relative"
                   style={{
@@ -172,36 +184,18 @@ export default function SearchBar({ query }) {
                 >
                   {/* Letter background glow that appears on hover */}
                   <motion.div
-                    className="absolute inset-0 rounded-lg -z-10"
+                    className="absolute inset-0 rounded-lg -z-10 pointer-events-none"
                     initial={{ opacity: 0, scale: 0.8 }}
-                    whileHover={{ 
-                      opacity: 0.4,
-                      scale: 1.6,
-                      background: `radial-gradient(circle, ${letterColors[index]}30 0%, transparent 70%)`
-                    }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
                   />
                   
-                  {/* Enhanced hover color and glow */}
-                  <motion.span
-                    key={`${letter}-${index}-${isDark}`} // Force re-render on theme change
+                  {/* Letter content */}
+                  <span
+                    key={`${letter}-${index}-${isDark}`}
                     className="relative z-10"
-                    animate={{ 
-                      color: letterColors[index],
-                      textShadow: `0 0 20px ${letterColors[index]}40`
-                    }}
-                    whileHover={{ 
-                      color: hoverColors[index],
-                      textShadow: [
-                        `0 0 20px ${letterColors[index]}40`,
-                        `0 0 40px ${hoverColors[index]}80`,
-                        `0 0 60px ${hoverColors[index]}60`
-                      ]
-                    }}
-                    transition={{ duration: 0.3 }}
                   >
                     {letter}
-                  </motion.span>
+                  </span>
                 </motion.span>
               ))}
             </div>
@@ -382,8 +376,8 @@ export default function SearchBar({ query }) {
         </AnimatePresence>
       </div>
 
-      {/* Action Buttons - Only show on home page */}
-      {path === "/" && (
+      {/* Action Buttons - Only show on home page when dropdown is closed */}
+      {path === "/" && !showSearch && (
         <motion.div 
           className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-8 md:mt-10 lg:mt-12 xl:mt-14"
           initial={{ opacity: 0, y: 20 }}
