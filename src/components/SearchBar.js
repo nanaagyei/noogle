@@ -188,8 +188,10 @@ export default function SearchBar({ query }) {
                   {/* Letter background glow that appears on hover */}
                   <motion.div
                     className="absolute inset-0 rounded-lg -z-10 pointer-events-none"
-                    initial={{ opacity: 0, scale: 0.8 }}
                     variants={{
+                      hidden: { opacity: 0, scale: 0.8 },
+                      visible: { opacity: 0, scale: 0.8 },
+                      floating: { opacity: 0, scale: 0.8 },
                       hover: {
                         opacity: 0.4,
                         scale: 1.6,
