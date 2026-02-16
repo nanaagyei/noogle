@@ -87,17 +87,17 @@
     "tech": ["React", "Tailwind CSS", "Next.js", "Supabase", "Stripe", "TypeScript"],
     "searchDescription": "Comprehensive digital health education platform providing free, culturally-relevant health information and resources to underserved communities in northern Ghana, featuring multilingual content and mobile-optimized accessibility",
     "longDescription": "• Architected comprehensive digital health platform using React, Next.js, Supabase, and TypeScript that delivers culturally-appropriate health education to 25,000+ users in northern Ghana, improving health literacy by 65%\n• Solved critical health information gap between urban medical centers and rural communities by implementing multilingual content, mobile-first design, and offline capabilities for areas with limited connectivity\n• Achieved 80% increase in preventive care adoption and 50% improvement in health screening compliance through health reminder systems, medication tracking, and emergency contact integration with local healthcare providers\n• Enabled sustainable operations through integrated fundraising and marketing components, resulting in 300% increase in community outreach and continuous content updates serving vulnerable populations across geographic barriers",
-    "links": [{"link": "https://github.com/akomapahealth/akomapa-health", "name": "github", "url": "github-outline.svg" , "urlHover": "github-outline.svg"}]
+    "links": [{"link": "https://github.com/akomapahealth/akomapa-health", "name": "github", "url": "github-outline.svg" , "urlHover": "github-outline.svg"}, {"link": "https://akomapa.org", "name": "check it out", "url": "link-outline.svg" , "urlHover": "link-outline.svg"}]
   },
   {
-    "title": "GradGPT Pro",
-    "alias": "gradgptpro",
+    "title": "Guidr",
+    "alias": "guidr",
     "headline": "Local mathematician builds a SaaS product that aims to expand online education in Ghana",
     "timeline": "May 2025 - Present",
     "type": "project",
     "tech": ["Next.js", "Tailwind CSS", "Supabase", "Stripe", "OpenAI API", "Prisma", "PostgreSQL", "TypeScript"],
     "searchDescription": "Advanced AI-powered educational SaaS platform integrating OpenAI technology with comprehensive learning management features, designed to revolutionize personalized education delivery and student engagement in Ghana",
     "longDescription": "• Built advanced AI-powered educational platform using Next.js, OpenAI API, Supabase, and PostgreSQL that provides personalized tutoring and adaptive learning experiences for 8,000+ students across Ghana's educational institutions\n• Solved one-size-fits-all learning challenges by integrating sophisticated language models with educational infrastructure, delivering 24/7 AI tutoring that addresses teacher shortage crisis in Ghanaian schools\n• Achieved 45% improvement in student engagement, 30% reduction in dropout rates, and 55% enhancement in learning efficiency through intelligent content recommendations, automated assessments, and real-time performance analytics\n• Democratized access to advanced AI education tools through affordable subscription model, making personalized learning financially accessible to institutions that previously couldn't afford private tutoring solutions",
-    "links": [{"link": "https://gradgpt.pro/", "name": "check it out", "url": "link-outline.svg" , "urlHover": "link-outline.svg"}]
+    "links": [{"link": "#", "name": "check it out", "url": "link-outline.svg" , "urlHover": "link-outline.svg"}]
   }
 ]

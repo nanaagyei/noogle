@@ -12,7 +12,7 @@ export default function About() {
       >
         <h2 style={{ color: theme.text.muted }}>PRINCE AGYEI TUFFOUR</h2>
         <h2>
-          I&apos;m a mathematician, a software engineer, a QA engineer, and potential ML engineer who loves building
+          I&apos;m a mathematician, a software engineer, a QA engineer, and a ML engineer in training who loves building
           things, learning new things, and solving problems.
         </h2>
 
@@ -40,14 +40,14 @@ export default function About() {
           through comprehensive testing, test automation, and quality assurance processes. 
           I work closely with development teams to maintain high standards of software quality while 
           contributing to the continuous improvement of our testing methodologies and frameworks.           I have a tradition of building at
-          least one large-scale project every year, this year I&apos;m creating{" "}
+          least one large-scale project every year, this year I&apos;m building{" "}
           <span>
             <Link
               className="inline-flex items-center hover:underline hover:opacity-70 transform transition-all duration-300 gap-x-1"
               style={{ color: theme.text.accent }}
-              href="/search?q=nana-projects&p=gradgptpro"
+              href="/search?q=nana-projects&p=guidr"
             >
-              GradGPT.pro.
+              Guidr
               <div
                 className="bg-no-repeat bg-cover w-4 h-4"
                 style={{ backgroundImage: `url("icons/link.svg")` }}

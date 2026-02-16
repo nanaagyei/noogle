@@ -4,6 +4,7 @@
     "alias": "dynaconnections",
     "headline": "Software QA Engineer",
     "timeline": "present",
+    "type": "small business",
     "searchDescription": "Quality assurance ninja ensuring bulletproof software solutions at DynaConnections, where attention to detail meets cutting-edge development practices",
     "longDescription": "• Design and execute comprehensive test strategies including manual and automated testing protocols, API testing, user interface validation, and performance testing to ensure compliance with industry standards\n• Achieved 40% improvement in overall product reliability and 60% reduction in post-deployment bugs through implementing quality assurance best practices and establishing testing frameworks that catch edge cases early\n• Collaborate closely with cross-functional development teams to identify and resolve issues before they become expensive problems, embedding quality mindset throughout entire development process\n• Developed expertise in creating detailed test cases, performing regression testing, and analytical problem-solving that provides deep insights into software development lifecycle and ensures highest standards of user experience"
   },
@@ -20,9 +21,9 @@
   {
     "title": "Akomapa Health",
     "alias": "akomapa",
-    "headline": "Software Engineer",
+    "headline": "CTO",
     "timeline": "May 2025 - Present",
-    "type": "startup",
+    "type": "non-profit",
     "searchDescription": "Leading technical operations for student-driven health organization in southern Ghana, managing website infrastructure and developing engagement strategies to amplify health education impact",
     "longDescription": "• Manage complete website workflow including server maintenance, database optimization, and feature implementation that supports 15,000+ active student users monthly with 99.8% uptime reliability for health education platform\n• Developed automated content delivery systems and mobile-first design improvements that increased user engagement by 65% and boosted mobile traffic by 80%, making health information more accessible to student communities\n• Engineered social media integration tools and analytics dashboards that resulted in 200% increase in cross-platform engagement, reaching students across 25+ educational institutions in southern Ghana\n• Built interactive community platform enabling students to access peer-reviewed health content, participate in wellness challenges, and connect with certified health professionals, demonstrating how technology amplifies grassroots health advocacy movements"
   }

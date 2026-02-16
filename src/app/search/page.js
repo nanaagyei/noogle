@@ -19,8 +19,8 @@ export default function Search() {
   const query = searchParams.get("q");
   const project = searchParams.get("p");
   const [selectedSearch, setSelectedSearch] = useState(
-    project === "gradgptpro"
-      ? projects.find((proj) => proj.alias === "gradgptpro")
+    project === "guidr"
+      ? projects.find((proj) => proj.alias === "guidr")
       : ""
   );
   const displayQuery = query ? query : "";
@@ -32,7 +32,7 @@ export default function Search() {
     (displayQuery == "why-hire-nana" && whyHire);
 
   const [showMore, setShowMore] = useState(false);
-  const [isOpen, setIsOpen] = useState(project === "gradgptpro" ? true : false);
+  const [isOpen, setIsOpen] = useState(project === "guidr" ? true : false);
   const languages = [
     "Python",
     "Java",
@@ -382,10 +382,10 @@ export default function Search() {
                   <h2>
                     Throughout my career, I&apos;ve consistently demonstrated a knack for
                     transforming challenges into opportunities for innovation. At
-                    dynaConnections, I revolutionized the QA process by implementing
+                    dynaConnections, I helped revolutionize the QA process by implementing
                     an automated testing framework that reduced testing time by 70%
                     while increasing coverage by 40%. I also spearheaded the
-                    development of GradGPT.pro, an innovative AI-powered platform
+                    development of Guidr, an innovative AI-powered platform
                     that&apos;s reshaping how students approach academic writing. My
                     expertise in Python, JS/TS, and deep learning frameworks like
                     PyTorch and TensorFlow has enabled me to build sophisticated
@@ -394,7 +394,7 @@ export default function Search() {
                   </h2>
 
                   <h2>
-                    Working with companies like dynaConnections and co-founding GradGPT.pro has led to 
+                    Working with companies like dynaConnections, co-founding Guidr, and building Akomapa Health has led to 
                     innovative solutions being successfully implemented, showcasing my ability 
                     to identify opportunities and deliver measurable value through technical expertise 
                     and creative problem-solving.
